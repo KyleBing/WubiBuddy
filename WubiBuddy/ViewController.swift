@@ -12,7 +12,12 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     
     @IBOutlet weak var tableView: NSTableView!
     
-    let demoURL = URL(fileURLWithPath: "/Users/Kyle/Library/Rime/wubi86_jidian_user.dict.yaml")
+    var demoURL:URL{
+        let userDictPath = "Library/Rime/wubi86_jidian_user.dict.yaml"
+        let pathHome = FileManager.default.homeDirectoryForCurrentUser
+        let userDictUrl = pathHome.appendingPathComponent(userDictPath)
+        return userDictUrl
+    }
     var substrings:[String] = []
     var dictionaries: [(key:String, value:String)] = []
 
@@ -53,6 +58,8 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 let tempSubstring = str.split(separator: "\t")
                 dictionaries.append(( String(tempSubstring[1]), String(tempSubstring[0])))
             }
+        } else {
+            // alert hasn't install github libray
         }
     }
     
