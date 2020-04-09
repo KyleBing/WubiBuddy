@@ -1,4 +1,8 @@
 
+<img width="654" alt="version1" src="https://user-images.githubusercontent.com/12215982/78883664-6105c680-7a8c-11ea-99c6-9f2fd3187aee.png">
+
+
+
 # 五笔用户词添加工具  for Rime
 > macOS version
 
