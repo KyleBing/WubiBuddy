@@ -19,7 +19,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         return userDictUrl
     }
     var substrings:[String] = []
-    var dictionaries: [(key:String, value:String)] = []
+    var dictionaries: [(key:String, value:String)] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
