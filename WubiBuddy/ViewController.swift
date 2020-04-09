@@ -13,9 +13,10 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     @IBOutlet weak var tableView: NSTableView!
     
     var demoURL:URL{
-        let userDictPath = "Library/Rime/wubi86_jidian_user.dict.yaml"
+        let fileName = "wubi86_jidian_extra_media.dict.yaml"
+        let filePath = "Library/Rime/" + fileName
         let pathHome = FileManager.default.homeDirectoryForCurrentUser
-        let userDictUrl = pathHome.appendingPathComponent(userDictPath)
+        let userDictUrl = pathHome.appendingPathComponent(filePath)
         return userDictUrl
     }
     var substrings:[String] = []
