@@ -19,7 +19,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         return userDictUrl
     }
     var substrings:[String] = []
-    var dictionaries: [(key:String, value:String)] = []
+    var dictionaries: [(key:String, value:String)] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,11 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         loadContent()
         tableView.reloadData()
         createFile()
+    }
+    
+    override func viewWillAppear() {
+        // set window name
+        view.window?.title = String(demoURL.path.split(separator: "/").last!)
     }
 
     override var representedObject: Any? {
@@ -50,6 +55,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     // 载入文件内容
     func loadContent() {
         if let fileContent = try? String(contentsOf: demoURL, encoding: .utf8) {
+            
             let tempStrings = fileContent.split(separator: "\n")
             substrings = tempStrings.map {String($0)}
             substrings = substrings.filter {$0.contains("\t")}
