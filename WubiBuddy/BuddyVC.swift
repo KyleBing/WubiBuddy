@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  BuddyVC.swift
 //  WubiBuddy
 //
 //  Created by Kyle on 2020/4/1.
@@ -8,12 +8,33 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class BuddyVC: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+
+    dynamic var newCode: String = "ggtt"
+    dynamic var newWord: String = "五笔"
+    
+    @IBOutlet weak var codeTextField: NSTextField!
+    @IBOutlet weak var wordTextField: NSTextField!
     
     @IBOutlet weak var tableView: NSTableView!
     
+    @IBOutlet weak var wordCountLabel: NSTextField!
+    
+    @IBAction func addWord(_ sender: NSButton) {
+        let code = codeTextField.stringValue
+        let word = wordTextField.stringValue
+        if code.count == 0 || word.count == 0{
+            // alert
+        } else {
+            dictionaries.append((key: code, value: word))
+            tableView.reloadData()
+            wordCountLabel.stringValue = String(dictionaries.count)
+            createFile()
+        }
+    }
     var demoURL:URL{
-        let fileName = "wubi86_jidian_extra_media.dict.yaml"
+        let fileName = "wubi86_jidian_extra_pro.dict.yaml"
+//        let fileName = "/Users/Kyle/Desktop/Rime.txt"
         let filePath = "Library/Rime/" + fileName
         let pathHome = FileManager.default.homeDirectoryForCurrentUser
         let userDictUrl = pathHome.appendingPathComponent(filePath)
@@ -21,6 +42,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     }
     var substrings:[String] = []
     var dictionaries: [(key:String, value:String)] = []
+    var fileHeader:String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +51,6 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         tableView.delegate = self
         loadContent()
         tableView.reloadData()
-        createFile()
     }
     
     override func viewWillAppear() {
@@ -41,21 +62,27 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         didSet {
         }
     }
+
     
     // MARK: - User methods
     // 创建文件
     func createFile() {
-        var output = ""
-        for str in substrings{
-            output = output + str + "\n"
+        var output = fileHeader + "\n...\n" // 插入头部
+        for item in dictionaries{
+            output = output + "\(item.key)\t\(item.value)" + "\n"
         }
         let fileManager = FileManager.default
-        fileManager.createFile(atPath:"/Users/Kyle/Desktop/xcode-test/test.txt", contents: output.data(using: .utf8), attributes: nil)
+        fileManager.createFile(atPath:"/Users/Kyle/Desktop/Rime.txt", contents: output.data(using: .utf8), attributes: nil)
     }
     
     // 载入文件内容
     func loadContent() {
         if let fileContent = try? String(contentsOf: demoURL, encoding: .utf8) {
+            
+            // 根据 ... 的位置获取文件头部
+            let nsFileContent = NSString(string: fileContent)
+            let headerRange = nsFileContent.range(of: "...")
+            fileHeader = String(fileContent.prefix(headerRange.lowerBound))
             
             let tempStrings = fileContent.split(separator: "\n")
             substrings = tempStrings.map {String($0)}
@@ -65,6 +92,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 let tempSubstring = str.split(separator: "\t")
                 dictionaries.append(( String(tempSubstring[1]), String(tempSubstring[0])))
             }
+            wordCountLabel.stringValue = "共\(dictionaries.count)条"
         } else {
             // alert hasn't install github libray
         }

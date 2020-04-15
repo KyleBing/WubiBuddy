@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		271BC8A7243F24840037BFDD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 271BC8A6243F24840037BFDD /* README.md */; };
 		274199C8243446300058AF19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274199C7243446300058AF19 /* AppDelegate.swift */; };
-		274199CA243446300058AF19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274199C9243446300058AF19 /* ViewController.swift */; };
+		274199CA243446300058AF19 /* BuddyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274199C9243446300058AF19 /* BuddyVC.swift */; };
 		274199CC243446320058AF19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274199CB243446320058AF19 /* Assets.xcassets */; };
 		274199CF243446320058AF19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274199CD243446320058AF19 /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -18,7 +18,7 @@
 		271BC8A6243F24840037BFDD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		274199C4243446300058AF19 /* WubiBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WubiBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274199C7243446300058AF19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		274199C9243446300058AF19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		274199C9243446300058AF19 /* BuddyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyVC.swift; sourceTree = "<group>"; };
 		274199CB243446320058AF19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		274199CE243446320058AF19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		274199D0243446320058AF19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				274199C7243446300058AF19 /* AppDelegate.swift */,
-				274199C9243446300058AF19 /* ViewController.swift */,
+				274199C9243446300058AF19 /* BuddyVC.swift */,
 				274199CB243446320058AF19 /* Assets.xcassets */,
 				274199CD243446320058AF19 /* Main.storyboard */,
 				274199D0243446320058AF19 /* Info.plist */,
@@ -137,7 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				274199CA243446300058AF19 /* ViewController.swift in Sources */,
+				274199CA243446300058AF19 /* BuddyVC.swift in Sources */,
 				274199C8243446300058AF19 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
