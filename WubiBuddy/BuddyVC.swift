@@ -20,6 +20,7 @@ class BuddyVC: NSViewController {
     @IBOutlet weak var wordTextField: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var wordCountLabel: NSTextField!
+    @IBOutlet weak var selectedCountLabel: NSTextField!
     
     @IBAction func addWord(_ sender: NSButton) {
         let code = codeTextField.stringValue
@@ -48,7 +49,11 @@ class BuddyVC: NSViewController {
         return userDictUrl
     }
     var substrings:[String] = []
-    var dictionaries: [(key:String, value:String)] = []
+    var dictionaries: [(key:String, value:String)] = [] {
+        didSet{
+            dictionaries.sort(by: <)
+        }
+    }
     var fileHeader:String = ""
 
     override func viewDidLoad() {
@@ -56,6 +61,7 @@ class BuddyVC: NSViewController {
         title = demoURL.path
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.allowsMultipleSelection = true
         loadContent()
         tableView.reloadData()
     }
@@ -114,12 +120,12 @@ class BuddyVC: NSViewController {
 }
 
 extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
-    // MARK: - Table Datasource
+    // Table Datasource
     func numberOfRows(in tableView: NSTableView) -> Int {
         return dictionaries.count
     }
     
-    // MARK: - Table Delegate
+    //Table Delegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CellNormal"), owner: self) as? NSTableCellView{
             switch tableColumn {
@@ -133,5 +139,9 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
         } else {
             return nil
         }
+    }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        selectedCountLabel.stringValue = "已选\(tableView.selectedRowIndexes.count)条"
     }
 }
