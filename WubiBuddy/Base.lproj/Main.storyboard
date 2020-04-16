@@ -32,15 +32,14 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Word" id="5QF-Oa-p0T">
+                            <menuItem title="Edit" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Word" id="W48-6f-4Dl">
+                                <menu key="submenu" title="Edit" id="W48-6f-4Dl">
                                     <items>
-                                        <menuItem title="Add" id="dRJ-4n-Yzg">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Delete" id="6dh-zS-Vam">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Reload File Content" keyEquivalent="r" id="S6x-5D-mkt">
+                                            <connections>
+                                                <action selector="reloadFileContent:" target="Ady-hI-5gd" id="lH6-2F-PEn"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -83,17 +82,17 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="BuddyVC" customModule="WubiBuddy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="563" height="440"/>
+                        <rect key="frame" x="0.0" y="0.0" width="563" height="444"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gXv-QP-Rl2">
-                                <rect key="frame" x="20" y="20" width="523" height="400"/>
+                                <rect key="frame" x="20" y="20" width="523" height="404"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWW-e0-pgp">
-                                        <rect key="frame" x="0.0" y="379" width="475" height="21"/>
+                                        <rect key="frame" x="0.0" y="342" width="475" height="62"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wk6-5G-DuX">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="21"/>
+                                                <rect key="frame" x="0.0" y="41" width="100" height="21"/>
                                                 <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="编码" drawsBackground="YES" id="bWK-c7-sEI">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -101,7 +100,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WYT-fc-yla">
-                                                <rect key="frame" x="110" y="0.0" width="300" height="21"/>
+                                                <rect key="frame" x="110" y="41" width="300" height="21"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="词条" drawsBackground="YES" id="qKO-gE-npg">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -109,7 +108,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LDq-fc-MPy">
-                                                <rect key="frame" x="414" y="-7" width="67" height="32"/>
+                                                <rect key="frame" x="414" y="34" width="67" height="32"/>
                                                 <buttonCell key="cell" type="push" title="添加" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TKm-Ay-ZsI">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -134,7 +133,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNm-OJ-BwA" userLabel="Table View">
-                                        <rect key="frame" x="0.0" y="78" width="523" height="281"/>
+                                        <rect key="frame" x="0.0" y="41" width="523" height="281"/>
                                         <clipView key="contentView" id="fqB-L0-1L6">
                                             <rect key="frame" x="1" y="1" width="521" height="279"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -228,11 +227,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qm6-Hm-9qU">
-                                        <rect key="frame" x="0.0" y="0.0" width="132" height="58"/>
+                                    <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qm6-Hm-9qU">
+                                        <rect key="frame" x="0.0" y="0.0" width="309" height="21"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w2T-jA-6YA">
-                                                <rect key="frame" x="-2" y="42" width="51" height="16"/>
+                                                <rect key="frame" x="-2" y="3" width="51" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" title="共45条" id="P7o-fy-wvi">
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -240,19 +239,43 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KQa-j6-cgv">
-                                                <rect key="frame" x="65" y="42" width="69" height="16"/>
+                                                <rect key="frame" x="65" y="3" width="69" height="16"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" placeholderString="已选择0条" id="zeU-aa-6xr">
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vyK-Sy-S4B">
+                                                <rect key="frame" x="146" y="-7" width="67" height="32"/>
+                                                <buttonCell key="cell" type="push" title="删除" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tmd-2c-Z1X">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="delete:" target="XfG-lQ-9wD" id="QLf-Qo-Auv"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cHO-LJ-zLl">
+                                                <rect key="frame" x="221" y="-7" width="94" height="32"/>
+                                                <buttonCell key="cell" type="push" title="重新输入" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Y8-m7-D7K">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="reloadFileContent:" target="XfG-lQ-9wD" id="EVi-2i-YvT"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
@@ -281,6 +304,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnDelete" destination="vyK-Sy-S4B" id="lKy-TM-nya"/>
                         <outlet property="codeTextField" destination="wk6-5G-DuX" id="jmc-DJ-Kuf"/>
                         <outlet property="selectedCountLabel" destination="KQa-j6-cgv" id="Uyo-52-dkw"/>
                         <outlet property="tableView" destination="K3U-02-ahH" id="VVM-m9-bFL"/>

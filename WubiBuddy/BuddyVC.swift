@@ -8,32 +8,60 @@
 
 import Cocoa
 
-class BuddyVC: NSViewController {
+struct Phrase: Hashable {
+    var code: String
+    var word: String
+}
 
+class BuddyVC: NSViewController {
+    
     dynamic var newCode: String = "ggtt"
     dynamic var newWord: String = "五笔"
-    
+    // CONST Values
     let IS_TEST_MODE = true
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
 
+    // Storyboard
     @IBOutlet weak var codeTextField: NSTextField!
     @IBOutlet weak var wordTextField: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var wordCountLabel: NSTextField!
     @IBOutlet weak var selectedCountLabel: NSTextField!
+    @IBOutlet weak var btnDelete: NSButton!
     
+    @IBAction func delete(_ sender: NSButton) {
+//        var deletedDics : Set<Phrase> = []
+//        tableView.selectedRowIndexes.forEach { (item) in
+//            deletedDics.insert(dictionaries[item])
+//        }
+        tableView.reloadData()
+//        dictionaries.removeAll {deletedDics.contains($0)}
+        updateLabels()
+        updateDeleteBtnState()
+        writeFile()
+    }
     @IBAction func addWord(_ sender: NSButton) {
         let code = codeTextField.stringValue
         let word = wordTextField.stringValue
         if code.count == 0 || word.count == 0{
             // alert
         } else {
-            dictionaries.append((key: code, value: word))
+            dictionaries.append(Phrase(code: code, word: word))
             tableView.reloadData()
-            wordCountLabel.stringValue = "共\(dictionaries.count)条"
-            createFile()
+            updateLabels()
+            writeFile()
         }
     }
+    
+    @IBAction func reloadFileContent(_ sender: Any) {
+        dictionaries = []
+        loadContent()
+        tableView.reloadData()
+        updateLabels()
+        updateDeleteBtnState()
+    }
+    
+    
     var demoURL:URL{
         var filePath = ""
         if (IS_TEST_MODE) {
@@ -48,22 +76,27 @@ class BuddyVC: NSViewController {
         let userDictUrl = pathHome.appendingPathComponent(filePath)
         return userDictUrl
     }
+    
     var substrings:[String] = []
-    var dictionaries: [(key:String, value:String)] = [] {
+    var dictionaries: [Phrase] = [] {
         didSet{
             dictionaries.sort(by: <)
         }
     }
     var fileHeader:String = ""
 
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = demoURL.path
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsMultipleSelection = true
+        updateDeleteBtnState()
         loadContent()
         tableView.reloadData()
+        updateLabels()
     }
     
     override func viewWillAppear() {
@@ -72,24 +105,23 @@ class BuddyVC: NSViewController {
     }
 
     override var representedObject: Any? {
-        didSet {
-        }
+        didSet {}
     }
 
     
     // MARK: - User methods
     // 创建文件
-    func createFile() {
+    func writeFile() {
         var output = fileHeader + "\n...\n\n" // 插入头部
         for item in dictionaries{
-            output = output + "\(item.value)\t\(item.key)" + "\n"
+            output = output + "\(item.word)\t\(item.code)" + "\n"
         }
         var newFileURL = demoURL
         newFileURL.deleteLastPathComponent()
         newFileURL = newFileURL.appendingPathComponent(tempFileName)
         FileManager.default.createFile(atPath:newFileURL.path, contents: output.data(using: .utf8), attributes: nil)
         do {
-            try FileManager.default.replaceItemAt(demoURL, withItemAt: newFileURL, backupItemName: "WubiBuddy-Backup.wubibuddy", options: .usingNewMetadataOnly)
+            try _ = FileManager.default.replaceItemAt(demoURL, withItemAt: newFileURL, backupItemName: "WubiBuddy-Backup.wubibuddy", options: .usingNewMetadataOnly)
         } catch {
             print("replace file fail")
         }
@@ -110,12 +142,27 @@ class BuddyVC: NSViewController {
         
             for str in substrings {
                 let tempSubstring = str.split(separator: "\t")
-                dictionaries.append(( String(tempSubstring[1]), String(tempSubstring[0])))
+                dictionaries.append(Phrase(code: String(tempSubstring[1]), word: String(tempSubstring[0])))
             }
             wordCountLabel.stringValue = "共\(dictionaries.count)条"
         } else {
             print("get file content fail")
         }
+    }
+    
+    // 更新删除按钮状态
+    func updateDeleteBtnState() {
+        if tableView.selectedRowIndexes.count > 0{
+             btnDelete.isEnabled = true
+        } else {
+             btnDelete.isEnabled = false
+        }
+    }
+    
+    // 更新界面中的Label
+    func updateLabels(){
+        wordCountLabel.stringValue = "共\(dictionaries.count)条"
+        selectedCountLabel.stringValue = "已选\(tableView.selectedRowIndexes.count)条"
     }
 }
 
@@ -130,9 +177,9 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CellNormal"), owner: self) as? NSTableCellView{
             switch tableColumn {
             case tableView.tableColumns[0]:
-                cell.textField?.stringValue = dictionaries[row].key
+                cell.textField?.stringValue = dictionaries[row].code
             case tableView.tableColumns[1]:
-                cell.textField?.stringValue = dictionaries[row].value
+                cell.textField?.stringValue = dictionaries[row].word
             default: break
             }
             return cell
@@ -142,6 +189,7 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        selectedCountLabel.stringValue = "已选\(tableView.selectedRowIndexes.count)条"
+        updateDeleteBtnState()
+        updateLabels()
     }
 }
