@@ -8,16 +8,17 @@
 
 import Cocoa
 
-class BuddyVC: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class BuddyVC: NSViewController {
 
     dynamic var newCode: String = "ggtt"
     dynamic var newWord: String = "五笔"
     
+    let IS_TEST_MODE = true
+    let tempFileName = "WubiBuddy-Temp.wubibuddy"
+
     @IBOutlet weak var codeTextField: NSTextField!
     @IBOutlet weak var wordTextField: NSTextField!
-    
     @IBOutlet weak var tableView: NSTableView!
-    
     @IBOutlet weak var wordCountLabel: NSTextField!
     
     @IBAction func addWord(_ sender: NSButton) {
@@ -28,14 +29,20 @@ class BuddyVC: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
         } else {
             dictionaries.append((key: code, value: word))
             tableView.reloadData()
-            wordCountLabel.stringValue = String(dictionaries.count)
+            wordCountLabel.stringValue = "共\(dictionaries.count)条"
             createFile()
         }
     }
     var demoURL:URL{
-        let fileName = "wubi86_jidian_extra_pro.dict.yaml"
-//        let fileName = "/Users/Kyle/Desktop/Rime.txt"
-        let filePath = "Library/Rime/" + fileName
+        var filePath = ""
+        if (IS_TEST_MODE) {
+            let fileName = "Rime.txt"
+            filePath = "Desktop/" + fileName
+            
+        } else {
+            let fileName = "wubi86_jidian_extra_pro.dict.yaml"
+            filePath = "Library/Rime/" + fileName
+        }
         let pathHome = FileManager.default.homeDirectoryForCurrentUser
         let userDictUrl = pathHome.appendingPathComponent(filePath)
         return userDictUrl
@@ -67,12 +74,19 @@ class BuddyVC: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     // MARK: - User methods
     // 创建文件
     func createFile() {
-        var output = fileHeader + "\n...\n" // 插入头部
+        var output = fileHeader + "\n...\n\n" // 插入头部
         for item in dictionaries{
-            output = output + "\(item.key)\t\(item.value)" + "\n"
+            output = output + "\(item.value)\t\(item.key)" + "\n"
         }
-        let fileManager = FileManager.default
-        fileManager.createFile(atPath:"/Users/Kyle/Desktop/Rime.txt", contents: output.data(using: .utf8), attributes: nil)
+        var newFileURL = demoURL
+        newFileURL.deleteLastPathComponent()
+        newFileURL = newFileURL.appendingPathComponent(tempFileName)
+        FileManager.default.createFile(atPath:newFileURL.path, contents: output.data(using: .utf8), attributes: nil)
+        do {
+            try FileManager.default.replaceItemAt(demoURL, withItemAt: newFileURL, backupItemName: "WubiBuddy-Backup.wubibuddy", options: .usingNewMetadataOnly)
+        } catch {
+            print("replace file fail")
+        }
     }
     
     // 载入文件内容
@@ -94,19 +108,18 @@ class BuddyVC: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
             }
             wordCountLabel.stringValue = "共\(dictionaries.count)条"
         } else {
-            // alert hasn't install github libray
+            print("get file content fail")
         }
     }
-    
+}
+
+extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
     // MARK: - Table Datasource
-    
     func numberOfRows(in tableView: NSTableView) -> Int {
         return dictionaries.count
     }
     
-    
     // MARK: - Table Delegate
-    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CellNormal"), owner: self) as? NSTableCellView{
             switch tableColumn {
@@ -122,4 +135,3 @@ class BuddyVC: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
         }
     }
 }
-
