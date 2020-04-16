@@ -8,17 +8,12 @@
 
 import Cocoa
 
-struct Phrase: Hashable {
-    var code: String
-    var word: String
-}
-
 class BuddyVC: NSViewController {
     
     dynamic var newCode: String = "ggtt"
     dynamic var newWord: String = "五笔"
     // CONST Values
-    let IS_TEST_MODE = true
+    let IS_TEST_MODE = false
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
 
     // Storyboard
@@ -30,12 +25,11 @@ class BuddyVC: NSViewController {
     @IBOutlet weak var btnDelete: NSButton!
     
     @IBAction func delete(_ sender: NSButton) {
-//        var deletedDics : Set<Phrase> = []
-//        tableView.selectedRowIndexes.forEach { (item) in
-//            deletedDics.insert(dictionaries[item])
-//        }
+        tableView.selectedRowIndexes.forEach { (indexSet) in
+            dictionaries.remove(at: indexSet)
+        }
+        tableView.selectedRow
         tableView.reloadData()
-//        dictionaries.removeAll {deletedDics.contains($0)}
         updateLabels()
         updateDeleteBtnState()
         writeFile()
@@ -46,7 +40,7 @@ class BuddyVC: NSViewController {
         if code.count == 0 || word.count == 0{
             // alert
         } else {
-            dictionaries.append(Phrase(code: code, word: word))
+            dictionaries.append((code: code, word: word))
             tableView.reloadData()
             updateLabels()
             writeFile()
@@ -69,7 +63,7 @@ class BuddyVC: NSViewController {
             filePath = "Desktop/" + fileName
             
         } else {
-            let fileName = "wubi86_jidian_extra_pro.dict.yaml"
+            let fileName = "wubi86_jidian_addition.dict.yaml"
             filePath = "Library/Rime/" + fileName
         }
         let pathHome = FileManager.default.homeDirectoryForCurrentUser
@@ -78,7 +72,7 @@ class BuddyVC: NSViewController {
     }
     
     var substrings:[String] = []
-    var dictionaries: [Phrase] = [] {
+    var dictionaries: [(code:String, word: String)] = [] {
         didSet{
             dictionaries.sort(by: <)
         }
@@ -92,7 +86,7 @@ class BuddyVC: NSViewController {
         title = demoURL.path
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.allowsMultipleSelection = true
+//        tableView.allowsMultipleSelection = true
         updateDeleteBtnState()
         loadContent()
         tableView.reloadData()
@@ -142,7 +136,7 @@ class BuddyVC: NSViewController {
         
             for str in substrings {
                 let tempSubstring = str.split(separator: "\t")
-                dictionaries.append(Phrase(code: String(tempSubstring[1]), word: String(tempSubstring[0])))
+                dictionaries.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
             }
             wordCountLabel.stringValue = "共\(dictionaries.count)条"
         } else {
