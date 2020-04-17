@@ -74,16 +74,13 @@
                                                 <action selector="paste:" target="Ady-hI-5gd" id="JLd-kY-Sxs"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Paste and Match Style" keyEquivalent="V" id="sS0-Hc-B7D">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="pasteAsPlainText:" target="Ady-hI-5gd" id="3eL-IK-den"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Delete" id="ufK-Or-rma">
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="delete:" target="Ady-hI-5gd" id="vN2-h6-wn8"/>
+                                                <action selector="deleteWord:" target="Ady-hI-5gd" id="iba-4q-O8K"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Select All" keyEquivalent="a" id="eSe-va-dRw">
@@ -149,7 +146,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="I" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Wubi Buddy" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="174" y="628" width="478" height="270"/>
@@ -345,7 +342,7 @@
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="delete:" target="XfG-lQ-9wD" id="QLf-Qo-Auv"/>
+                                                    <action selector="deleteWord:" target="rPt-NT-nkU" id="wrM-Qb-MAt"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cHO-LJ-zLl">

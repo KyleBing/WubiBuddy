@@ -26,7 +26,7 @@ class BuddyVC: NSViewController {
     @IBOutlet weak var btnDelete: NSButton!
     @IBOutlet weak var btnAdd: NSButton!
     
-    @IBAction func delete(_ sender: NSButton) {
+    @IBAction func deleteWord(_ sender: NSButton) {
         tableView.selectedRowIndexes.forEach { (indexSet) in
             dictionaries.remove(at: indexSet)
         }
