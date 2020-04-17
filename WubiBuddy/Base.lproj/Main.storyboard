@@ -214,6 +214,9 @@
                                                 </tableView>
                                             </subviews>
                                         </clipView>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="280" id="z7f-jG-yr3"/>
+                                        </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="aKc-rv-4jh">
                                             <rect key="frame" x="2" y="263" width="519" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>

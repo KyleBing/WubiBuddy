@@ -28,7 +28,6 @@ class BuddyVC: NSViewController {
         tableView.selectedRowIndexes.forEach { (indexSet) in
             dictionaries.remove(at: indexSet)
         }
-        tableView.selectedRow
         tableView.reloadData()
         updateLabels()
         updateDeleteBtnState()
