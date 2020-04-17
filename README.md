@@ -1,10 +1,10 @@
 
-<img width="654" alt="version1" src="https://user-images.githubusercontent.com/12215982/78883664-6105c680-7a8c-11ea-99c6-9f2fd3187aee.png">
+<img width="654" alt="version1" src="https://user-images.githubusercontent.com/12215982/79558725-3395ca00-80d7-11ea-9401-ed6a4967eaac.png">
 
 
 
 # 五笔用户词添加工具  for Rime
-> macOS version
+> macOS version v10.15
 
 对于这个添加用户词的工具，有好的想法可以从 `issue` 中提出来
 基于自己是业余时间现学现做，可能会耗费比较长时间，慢慢来。
