@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import UserNotifications
 
 class BuddyVC: NSViewController {
     
@@ -23,6 +24,7 @@ class BuddyVC: NSViewController {
     @IBOutlet weak var wordCountLabel: NSTextField!
     @IBOutlet weak var selectedCountLabel: NSTextField!
     @IBOutlet weak var btnDelete: NSButton!
+    @IBOutlet weak var btnAdd: NSButton!
     
     @IBAction func delete(_ sender: NSButton) {
         tableView.selectedRowIndexes.forEach { (indexSet) in
@@ -53,6 +55,9 @@ class BuddyVC: NSViewController {
         updateLabels()
         updateDeleteBtnState()
     }
+    
+    
+    let TextDidChangeNotification = Notification(name: Notification.Name.init("TextDidChange"))
     
     
     var demoURL:URL{
@@ -87,6 +92,7 @@ class BuddyVC: NSViewController {
         tableView.delegate = self
 //        tableView.allowsMultipleSelection = true
         updateDeleteBtnState()
+        updateAddBtnState()
         loadContent()
         tableView.reloadData()
         updateLabels()
@@ -152,6 +158,15 @@ class BuddyVC: NSViewController {
         }
     }
     
+    // 更新添加按钮状态
+    func updateAddBtnState() {
+//        if codeTextField.stringValue == "" || wordTextField.stringValue == "" {
+//             btnAdd.isEnabled = false
+//        } else {
+//             btnAdd.isEnabled = true
+//        }
+    }
+    
     // 更新界面中的Label
     func updateLabels(){
         wordCountLabel.stringValue = "共\(dictionaries.count)条"
@@ -159,6 +174,7 @@ class BuddyVC: NSViewController {
     }
 }
 
+// MARK: - Table Datasource and Delegate
 extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
     // Table Datasource
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -184,5 +200,12 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         updateDeleteBtnState()
         updateLabels()
+    }
+}
+
+extension BuddyVC: NSControlTextEditingDelegate{
+    func controlTextDidChange(_ obj: Notification) {
+        print(obj.description)
+        print("text did change")
     }
 }

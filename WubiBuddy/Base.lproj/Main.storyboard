@@ -32,14 +32,103 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Edit" id="5QF-Oa-p0T">
+                            <menuItem title="Data" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Edit" id="W48-6f-4Dl">
+                                <menu key="submenu" title="Data" id="W48-6f-4Dl">
                                     <items>
                                         <menuItem title="Reload File Content" keyEquivalent="r" id="S6x-5D-mkt">
                                             <connections>
                                                 <action selector="reloadFileContent:" target="Ady-hI-5gd" id="lH6-2F-PEn"/>
                                             </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Edit" id="qjx-Xh-vUn">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Edit" id="euQ-se-Hfh">
+                                    <items>
+                                        <menuItem title="Undo" keyEquivalent="z" id="RQP-fx-uWH">
+                                            <connections>
+                                                <action selector="undo:" target="Ady-hI-5gd" id="dTz-aG-Qqr"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Redo" keyEquivalent="Z" id="kWL-Cj-gFW">
+                                            <connections>
+                                                <action selector="redo:" target="Ady-hI-5gd" id="5Jq-F0-woD"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="z2u-pZ-d6F"/>
+                                        <menuItem title="Cut" keyEquivalent="x" id="0mH-95-RrQ">
+                                            <connections>
+                                                <action selector="cut:" target="Ady-hI-5gd" id="Jld-xx-CxZ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Copy" keyEquivalent="c" id="fWl-KR-nwW">
+                                            <connections>
+                                                <action selector="copy:" target="Ady-hI-5gd" id="5g2-NU-fGY"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paste" keyEquivalent="v" id="t8E-0h-9IL">
+                                            <connections>
+                                                <action selector="paste:" target="Ady-hI-5gd" id="JLd-kY-Sxs"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paste and Match Style" keyEquivalent="V" id="sS0-Hc-B7D">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="pasteAsPlainText:" target="Ady-hI-5gd" id="3eL-IK-den"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Delete" id="ufK-Or-rma">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="delete:" target="Ady-hI-5gd" id="vN2-h6-wn8"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Select All" keyEquivalent="a" id="eSe-va-dRw">
+                                            <connections>
+                                                <action selector="selectAll:" target="Ady-hI-5gd" id="bdB-6d-oCA"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="fgn-Xx-0Eh"/>
+                                        <menuItem title="Find" id="Vbu-9r-5Jx">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Find" id="Z9I-YZ-YOQ">
+                                                <items>
+                                                    <menuItem title="Find…" tag="1" keyEquivalent="f" id="REq-uv-TAy">
+                                                        <connections>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="ewf-oV-xMS"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Find and Replace…" tag="12" keyEquivalent="f" id="tFg-WN-nR4">
+                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                        <connections>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="33O-mz-eAB"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Find Next" tag="2" keyEquivalent="g" id="7ia-Lj-Dqw">
+                                                        <connections>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="Qzn-rB-WDp"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Find Previous" tag="3" keyEquivalent="G" id="dKf-0h-9AL">
+                                                        <connections>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="jhO-Kv-r36"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Use Selection for Find" tag="7" keyEquivalent="e" id="oXW-oO-WGq">
+                                                        <connections>
+                                                            <action selector="performFindPanelAction:" target="Ady-hI-5gd" id="mkb-U3-xPg"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Jump to Selection" keyEquivalent="j" id="KTk-o7-ktL">
+                                                        <connections>
+                                                            <action selector="centerSelectionInVisibleArea:" target="Ady-hI-5gd" id="dq7-IP-YCv"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -215,7 +304,7 @@
                                             </subviews>
                                         </clipView>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="280" id="z7f-jG-yr3"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="z7f-jG-yr3"/>
                                         </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="aKc-rv-4jh">
                                             <rect key="frame" x="2" y="263" width="519" height="16"/>
@@ -307,6 +396,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnAdd" destination="LDq-fc-MPy" id="XOb-BI-7wA"/>
                         <outlet property="btnDelete" destination="vyK-Sy-S4B" id="lKy-TM-nya"/>
                         <outlet property="codeTextField" destination="wk6-5G-DuX" id="jmc-DJ-Kuf"/>
                         <outlet property="selectedCountLabel" destination="KQa-j6-cgv" id="Uyo-52-dkw"/>
@@ -318,7 +408,7 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="Bso-eK-YLh"/>
             </objects>
-            <point key="canvasLocation" x="75" y="831"/>
+            <point key="canvasLocation" x="77" y="800"/>
         </scene>
     </scenes>
 </document>
