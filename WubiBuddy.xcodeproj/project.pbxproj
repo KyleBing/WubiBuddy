@@ -16,7 +16,7 @@
 
 /* Begin PBXFileReference section */
 		271BC8A6243F24840037BFDD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		274199C4243446300058AF19 /* WubiBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WubiBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		274199C4243446300058AF19 /* 码表助手.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "码表助手.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		274199C7243446300058AF19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		274199C9243446300058AF19 /* BuddyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyVC.swift; sourceTree = "<group>"; };
 		274199CB243446320058AF19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		274199C5243446300058AF19 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				274199C4243446300058AF19 /* WubiBuddy.app */,
+				274199C4243446300058AF19 /* 码表助手.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,9 +69,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		274199C3243446300058AF19 /* WubiBuddy */ = {
+		274199C3243446300058AF19 /* 码表助手 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 274199D4243446320058AF19 /* Build configuration list for PBXNativeTarget "WubiBuddy" */;
+			buildConfigurationList = 274199D4243446320058AF19 /* Build configuration list for PBXNativeTarget "码表助手" */;
 			buildPhases = (
 				274199C0243446300058AF19 /* Sources */,
 				274199C1243446300058AF19 /* Frameworks */,
@@ -81,9 +81,9 @@
 			);
 			dependencies = (
 			);
-			name = WubiBuddy;
+			name = "码表助手";
 			productName = WubiBuddy;
-			productReference = 274199C4243446300058AF19 /* WubiBuddy.app */;
+			productReference = 274199C4243446300058AF19 /* 码表助手.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -114,7 +114,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				274199C3243446300058AF19 /* WubiBuddy */,
+				274199C3243446300058AF19 /* 码表助手 */,
 			);
 		};
 /* End PBXProject section */
@@ -277,7 +277,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 4J6QFDHMK2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = WubiBuddy/Info.plist;
@@ -289,6 +289,7 @@
 				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.kylebing.WubiBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -301,7 +302,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 4J6QFDHMK2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = WubiBuddy/Info.plist;
@@ -313,6 +314,7 @@
 				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.kylebing.WubiBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -329,7 +331,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		274199D4243446320058AF19 /* Build configuration list for PBXNativeTarget "WubiBuddy" */ = {
+		274199D4243446320058AF19 /* Build configuration list for PBXNativeTarget "码表助手" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				274199D5243446320058AF19 /* Debug */,
