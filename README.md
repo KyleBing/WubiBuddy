@@ -2,7 +2,6 @@
 <img width="654" alt="version1" src="https://user-images.githubusercontent.com/12215982/79558725-3395ca00-80d7-11ea-9401-ed6a4967eaac.png">
 
 
-
 # 五笔用户词添加工具  for Rime
 > macOS version v10.15
 
@@ -11,12 +10,15 @@
 
 ## 使用
 添加用户词后，需要手动布署一下
+
 鼠须管的布署快捷键是：<kbd>control</kbd> + <kbd>option</kbd> + <kbd>`</kbd>
 
 ## 注意事项
 程序是取文件中 `...` 前面的内容作为不动的头部，然后处理的之后的部分。
+
 所以你也可以手动添加内容，但一定要保留 `...` 这行
-测试版本，`bug` 多请见谅
+
+测试版本，`bug` 多
 
 ## 功能
 我目前的想法是这样的：

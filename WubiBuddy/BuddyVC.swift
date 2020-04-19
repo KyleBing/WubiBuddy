@@ -11,10 +11,8 @@ import UserNotifications
 
 class BuddyVC: NSViewController {
     
-    dynamic var newCode: String = "ggtt"
-    dynamic var newWord: String = "五笔"
     // CONST Values
-    let IS_TEST_MODE = false
+    let IS_TEST_MODE = true
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
 
     // Storyboard
@@ -51,6 +49,7 @@ class BuddyVC: NSViewController {
     @IBAction func reloadFileContent(_ sender: Any) {
         dictionaries = []
         loadContent()
+        validateInvalidSubstringExsit()
         tableView.reloadData()
         updateLabels()
         updateDeleteBtnState()
@@ -74,8 +73,6 @@ class BuddyVC: NSViewController {
         let userDictUrl = pathHome.appendingPathComponent(filePath)
         return userDictUrl
     }
-    
-    var substrings:[String] = []
     var dictionaries: [(code:String, word: String)] = [] {
         didSet{
             dictionaries.sort(by: <)
@@ -83,6 +80,7 @@ class BuddyVC: NSViewController {
     }
     var fileHeader:String = ""
 
+    var substringInvalid: [String] = []
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -102,6 +100,12 @@ class BuddyVC: NSViewController {
         // set window name
         view.window?.title = String(demoURL.path.split(separator: "/").last!)
     }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        validateInvalidSubstringExsit()
+    }
+    
 
     override var representedObject: Any? {
         didSet {}
@@ -129,25 +133,89 @@ class BuddyVC: NSViewController {
     // 载入文件内容
     func loadContent() {
         if let fileContent = try? String(contentsOf: demoURL, encoding: .utf8) {
-            
             // 根据 ... 的位置获取文件头部
             let nsFileContent = NSString(string: fileContent)
             let headerRange = nsFileContent.range(of: "...")
-            fileHeader = String(fileContent.prefix(headerRange.lowerBound))
+            fileHeader = nsFileContent.substring(to: headerRange.lowerBound)
+            let fileContent = nsFileContent.substring(from: headerRange.upperBound)
             
             let tempStrings = fileContent.split(separator: "\n")
-            substrings = tempStrings.map {String($0)}
-            substrings = substrings.filter {$0.contains("\t")}
-        
-            for str in substrings {
+            let substringAll = tempStrings.map {String($0)}
+            let substringValid = substringAll.filter {$0.contains("\t")}
+            substringInvalid = substringAll.filter {!$0.contains("\t") && NSPredicate(format: "SELF MATCHES %@", "^\\w+? {0,10}.+?$").evaluate(with: $0)}
+
+            for str in substringValid {
                 let tempSubstring = str.split(separator: "\t")
                 dictionaries.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
             }
             wordCountLabel.stringValue = "共\(dictionaries.count)条"
         } else {
-            print("get file content fail")
+            print("get 'wubi_jidian_addition.dict.yaml' file content fail")
         }
     }
+    
+    func validateInvalidSubstringExsit(){
+        // if invalid string exsit: alert about it
+        if !substringInvalid.isEmpty {
+            var invalidStringCombine = ""
+            for item in substringInvalid {
+                invalidStringCombine = invalidStringCombine + (item + "\n")
+            }
+            let userInfo = [NSLocalizedDescriptionKey: "存在不规范词条"]
+            let error =  NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: userInfo)
+            let alert = NSAlert(error: error)
+            alert.messageText = "存在不规范词条，添加到词库中？\n不添加：不规范词条将保存在桌面上的 “Rime不规范的词条.txt” 文件中\n\n"
+            alert.informativeText = invalidStringCombine
+            alert.addButton(withTitle: "添加")
+            alert.addButton(withTitle: "不添加")
+
+            if let window = view.window {
+                alert.beginSheetModal(for: window) {[unowned self] (response) in
+                    switch response.rawValue {
+                    case 1000:
+                        for item in self.substringInvalid {
+                            do {
+                                let regWord = try NSRegularExpression(pattern: "^\\w+(?=\\s+)", options: .useUnicodeWordBoundaries)
+                                let regCode = try NSRegularExpression(pattern: "(?<=\\s)[a-zA-Z]+$", options: .useUnicodeWordBoundaries)
+                                
+                                let strRangeMax = NSMakeRange(0, item.count)
+                                if let codeMatch = regCode.firstMatch(in: item, options: .reportCompletion, range: strRangeMax),
+                                    let wordMatch = regWord.firstMatch(in: item, options: .reportCompletion, range: strRangeMax){
+                                    let codeString = NSString(string: item).substring(with: codeMatch.range)
+                                    let wordString = NSString(string: item).substring(with: wordMatch.range)
+                                    self.dictionaries.append((code: codeString, word: wordString))
+                                }
+                            } catch {
+                                print("Init regular expression fail")
+                            }
+                        }
+                        self.tableView.reloadData()
+                        self.writeFile()
+                    case 1001:
+                        var output = "# 这些是配置文件中格式不正确的：\n\n" // 插入头部
+                        for item in self.substringInvalid {
+                            output = output + item + "\n"
+                        }
+                        let fileName = "Rime不规范的词条.txt"
+                        let filePath = "Desktop/" + fileName
+                        let pathHome = FileManager.default.homeDirectoryForCurrentUser
+                        let invalidWordsFileURL = pathHome.appendingPathComponent(filePath)
+                        var newFileURL = invalidWordsFileURL
+                        newFileURL.deleteLastPathComponent()
+                        newFileURL = newFileURL.appendingPathComponent(self.tempFileName)
+                        FileManager.default.createFile(atPath:newFileURL.path, contents: output.data(using: .utf8), attributes: nil)
+                        do {
+                            try _ = FileManager.default.replaceItemAt(invalidWordsFileURL, withItemAt: newFileURL, backupItemName: "WubiBuddy-Backup.wubibuddy", options: .usingNewMetadataOnly)
+                        } catch {
+                            print("replace invalid words file fail")
+                        }
+                    default: break
+                    }
+                }
+            }
+        }
+    }
+    
     
     // 更新删除按钮状态
     func updateDeleteBtnState() {
@@ -173,6 +241,8 @@ class BuddyVC: NSViewController {
         selectedCountLabel.stringValue = "已选\(tableView.selectedRowIndexes.count)条"
     }
 }
+
+
 
 // MARK: - Table Datasource and Delegate
 extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
@@ -200,12 +270,5 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         updateDeleteBtnState()
         updateLabels()
-    }
-}
-
-extension BuddyVC: NSControlTextEditingDelegate{
-    func controlTextDidChange(_ obj: Notification) {
-        print(obj.description)
-        print("text did change")
     }
 }
