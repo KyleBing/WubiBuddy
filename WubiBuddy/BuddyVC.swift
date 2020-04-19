@@ -35,12 +35,17 @@ class BuddyVC: NSViewController {
         writeFile()
     }
     @IBAction func addWord(_ sender: NSButton) {
-        let code = codeTextField.stringValue
+        let code = codeTextField.stringValue.trimmingCharacters(in: .whitespaces)
         let word = wordTextField.stringValue
         if code.count == 0 || word.count == 0{
-            // alert
+            codeTextField.becomeFirstResponder()
         } else {
             dictionaries.append((code: code, word: word))
+            // 重置输入区
+            codeTextField.stringValue = ""
+            wordTextField.stringValue = ""
+            codeTextField.becomeFirstResponder()
+            
             tableView.reloadData()
             updateLabels()
             writeFile()
