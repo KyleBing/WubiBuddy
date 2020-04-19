@@ -16,7 +16,6 @@ class BuddyVC: NSViewController {
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
     let backupFileName = "WubiBuddy-Backup.wubibuddy"
 
-
     // Storyboard
     @IBOutlet weak var codeTextField: NSTextField!
     @IBOutlet weak var wordTextField: NSTextField!
@@ -61,7 +60,7 @@ class BuddyVC: NSViewController {
     let TextDidChangeNotification = Notification(name: Notification.Name.init("TextDidChange"))
     
     
-    var demoURL:URL{
+    var mainFileURL:URL{
         var filePath = ""
         if (IS_TEST_MODE) {
             let fileName = "Rime.txt"
@@ -87,7 +86,7 @@ class BuddyVC: NSViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = demoURL.path
+        title = mainFileURL.path
         tableView.dataSource = self
         tableView.delegate = self
 //        tableView.allowsMultipleSelection = true
@@ -100,7 +99,7 @@ class BuddyVC: NSViewController {
     
     override func viewWillAppear() {
         // set window name
-        view.window?.title = String(demoURL.path.split(separator: "/").last!)
+        view.window?.title = String(mainFileURL.path.split(separator: "/").last!)
     }
     
     override func viewDidAppear() {
@@ -121,12 +120,12 @@ class BuddyVC: NSViewController {
         for item in dictionaries{
             output = output + "\(item.word)\t\(item.code)" + "\n"
         }
-        var newFileURL = demoURL
+        var newFileURL = mainFileURL
         newFileURL.deleteLastPathComponent()
         newFileURL = newFileURL.appendingPathComponent(tempFileName)
         FileManager.default.createFile(atPath:newFileURL.path, contents: output.data(using: .utf8), attributes: nil)
         do {
-            try _ = FileManager.default.replaceItemAt(demoURL, withItemAt: newFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
+            try _ = FileManager.default.replaceItemAt(mainFileURL, withItemAt: newFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
         } catch {
             print("replace file fail")
         }
@@ -134,7 +133,7 @@ class BuddyVC: NSViewController {
     
     // 载入文件内容
     func loadContent() {
-        if let fileContent = try? String(contentsOf: demoURL, encoding: .utf8) {
+        if let fileContent = try? String(contentsOf: mainFileURL, encoding: .utf8) {
             // 根据 ... 的位置获取文件头部
             let nsFileContent = NSString(string: fileContent)
             
@@ -169,6 +168,7 @@ class BuddyVC: NSViewController {
         }
     }
     
+    // 不规范词条操作
     func validateInvalidSubstringExsit(){
         // if invalid string exsit: alert about it
         if !substringInvalid.isEmpty {
@@ -213,7 +213,10 @@ class BuddyVC: NSViewController {
                         self.tableView.reloadData()
                         self.writeFile()
                     case 1001: // 添加到桌面文件
-                        var output = "# 这些是配置文件中格式不正确的：\n\n" // 插入头部
+                        var output = """
+                                    # 原文件路径：\(self.mainFileURL.path)
+                                    # 这些是配置文件中格式不正确的词条：\n\n
+                                    """ // 插入头部
                         for item in self.substringInvalid {
                             output = output + item + "\n"
                         }
@@ -230,6 +233,7 @@ class BuddyVC: NSViewController {
                         } catch {
                             print("FileManager: replace invalid words file fail")
                         }
+                        self.writeFile()
                     default: break
                     }
                 }
