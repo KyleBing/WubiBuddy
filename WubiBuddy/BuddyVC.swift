@@ -14,6 +14,8 @@ class BuddyVC: NSViewController {
     // CONST Values
     let IS_TEST_MODE = true
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
+    let backupFileName = "WubiBuddy-Backup.wubibuddy"
+
 
     // Storyboard
     @IBOutlet weak var codeTextField: NSTextField!
@@ -124,7 +126,7 @@ class BuddyVC: NSViewController {
         newFileURL = newFileURL.appendingPathComponent(tempFileName)
         FileManager.default.createFile(atPath:newFileURL.path, contents: output.data(using: .utf8), attributes: nil)
         do {
-            try _ = FileManager.default.replaceItemAt(demoURL, withItemAt: newFileURL, backupItemName: "WubiBuddy-Backup.wubibuddy", options: .usingNewMetadataOnly)
+            try _ = FileManager.default.replaceItemAt(demoURL, withItemAt: newFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
         } catch {
             print("replace file fail")
         }
@@ -135,7 +137,20 @@ class BuddyVC: NSViewController {
         if let fileContent = try? String(contentsOf: demoURL, encoding: .utf8) {
             // 根据 ... 的位置获取文件头部
             let nsFileContent = NSString(string: fileContent)
+            
             let headerRange = nsFileContent.range(of: "...")
+            // 如果文件中缺少 ... 这行，退出
+            if headerRange.length == 0 {
+                let alert = NSAlert()
+                alert.messageText = "文件中缺少必要分隔行"
+                alert.informativeText = """
+                                        请确保文件中存在 【 ... 】 三个点这一行
+                                        请手动添加，再打开程序重试
+                                        点击确定退出程序
+                                        """
+                alert.runModal()
+                exit(0)
+            }
             fileHeader = nsFileContent.substring(to: headerRange.lowerBound)
             let fileContent = nsFileContent.substring(from: headerRange.upperBound)
             
@@ -211,7 +226,7 @@ class BuddyVC: NSViewController {
                         newFileURL = newFileURL.appendingPathComponent(self.tempFileName)
                         FileManager.default.createFile(atPath:newFileURL.path, contents: output.data(using: .utf8), attributes: nil)
                         do {
-                            try _ = FileManager.default.replaceItemAt(invalidWordsFileURL, withItemAt: newFileURL, backupItemName: "WubiBuddy-Backup.wubibuddy", options: .usingNewMetadataOnly)
+                            try _ = FileManager.default.replaceItemAt(invalidWordsFileURL, withItemAt: newFileURL, backupItemName: self.backupFileName, options: .usingNewMetadataOnly)
                         } catch {
                             print("FileManager: replace invalid words file fail")
                         }
