@@ -150,7 +150,7 @@ class BuddyVC: NSViewController {
             }
             wordCountLabel.stringValue = "共\(dictionaries.count)条"
         } else {
-            print("get 'wubi_jidian_addition.dict.yaml' file content fail")
+            print("FileManager: get 'wubi_jidian_addition.dict.yaml' file content fail")
         }
     }
     
@@ -164,15 +164,21 @@ class BuddyVC: NSViewController {
             let userInfo = [NSLocalizedDescriptionKey: "存在不规范词条"]
             let error =  NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: userInfo)
             let alert = NSAlert(error: error)
-            alert.messageText = "存在不规范词条，添加到词库中？\n不添加：不规范词条将保存在桌面上的 “Rime不规范的词条.txt” 文件中\n\n"
-            alert.informativeText = invalidStringCombine
+            alert.messageText = "存在不规范词条，添加到词库中？"
+            alert.informativeText = """
+                                    【 添加 】：保存到当前词库中
+                                    【 取消 】：保存在桌面“Rime不规范的词条.txt”文件中
+                                    -----------------------------\n
+                                    \(invalidStringCombine)
+                                    -----------------------------
+                                    """
             alert.addButton(withTitle: "添加")
-            alert.addButton(withTitle: "不添加")
+            alert.addButton(withTitle: "取消")
 
             if let window = view.window {
                 alert.beginSheetModal(for: window) {[unowned self] (response) in
                     switch response.rawValue {
-                    case 1000:
+                    case 1000: // 添加到词库
                         for item in self.substringInvalid {
                             do {
                                 let regWord = try NSRegularExpression(pattern: "^\\w+(?=\\s+)", options: .useUnicodeWordBoundaries)
@@ -191,7 +197,7 @@ class BuddyVC: NSViewController {
                         }
                         self.tableView.reloadData()
                         self.writeFile()
-                    case 1001:
+                    case 1001: // 添加到桌面文件
                         var output = "# 这些是配置文件中格式不正确的：\n\n" // 插入头部
                         for item in self.substringInvalid {
                             output = output + item + "\n"
@@ -207,7 +213,7 @@ class BuddyVC: NSViewController {
                         do {
                             try _ = FileManager.default.replaceItemAt(invalidWordsFileURL, withItemAt: newFileURL, backupItemName: "WubiBuddy-Backup.wubibuddy", options: .usingNewMetadataOnly)
                         } catch {
-                            print("replace invalid words file fail")
+                            print("FileManager: replace invalid words file fail")
                         }
                     default: break
                     }
