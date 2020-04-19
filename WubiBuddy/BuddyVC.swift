@@ -122,7 +122,7 @@ class BuddyVC: NSViewController {
     // MARK: - User methods
     // 创建文件
     func writeFile() {
-        var output = fileHeader + "\n...\n\n" // 插入头部
+        var output = fileHeader + "...\n\n" // 插入头部
         for item in dictionaries{
             output = output + "\(item.word)\t\(item.code)" + "\n"
         }
