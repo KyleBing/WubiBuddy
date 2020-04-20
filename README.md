@@ -1,7 +1,6 @@
 
 <img width="654" alt="version1" src="https://user-images.githubusercontent.com/12215982/79558725-3395ca00-80d7-11ea-9401-ed6a4967eaac.png">
 
-
 # 五笔用户词添加工具  for Rime
 > macOS version v10.15
 
@@ -29,6 +28,9 @@
 - [x]  添加用户词  `2020-04-15`
 - [x]  删除用户词  `2020-04-15`
 
+## 流程
+
+![WubiBuddy-WorkFlow](https://user-images.githubusercontent.com/12215982/79714194-9fa84600-8302-11ea-995d-15239ef52c1e.png)
 
 
 ## 延伸
