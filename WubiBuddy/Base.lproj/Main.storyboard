@@ -347,7 +347,7 @@ CA
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cHO-LJ-zLl">
                                                 <rect key="frame" x="221" y="-7" width="147" height="32"/>
-                                                <buttonCell key="cell" type="push" title="重新输入文件内容" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Y8-m7-D7K">
+                                                <buttonCell key="cell" type="push" title="重新载入文件内容" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Y8-m7-D7K">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                 </buttonCell>

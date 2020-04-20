@@ -59,7 +59,7 @@ class BuddyVC: NSViewController {
             filePath = "Desktop/" + fileName
             
         } else {
-            let fileName = "wubi86_jidian_addition.dict.yaml"
+            let fileName = "wubi86_jidian_addition.dct.yaml"
             filePath = "Library/Rime/" + fileName
         }
         let pathHome = FileManager.default.homeDirectoryForCurrentUser
@@ -72,7 +72,6 @@ class BuddyVC: NSViewController {
         }
     }
     var fileHeader:String = ""
-
     var substringInvalid: [String] = []
     
     // MARK: - Life Cycle
@@ -83,6 +82,7 @@ class BuddyVC: NSViewController {
         tableView.delegate = self
         codeTextField.delegate = self
         wordTextField.delegate = self
+        
 //        tableView.allowsMultipleSelection = true
         updateDeleteBtnState()
         loadContent()
@@ -157,7 +157,11 @@ class BuddyVC: NSViewController {
             }
             wordCountLabel.stringValue = "共\(dictionaries.count)条"
         } else {
-            print("FileManager: get 'wubi_jidian_addition.dict.yaml' file content fail")
+            let alert = NSAlert()
+            alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
+            alert.informativeText = "请前往 https://github.com/KyleBing/rime-wubi86-jidian 下载最新配置文件，再重试"
+            alert.runModal()
+            exit(0)
         }
     }
     
