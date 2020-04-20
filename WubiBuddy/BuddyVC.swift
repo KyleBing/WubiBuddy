@@ -59,7 +59,7 @@ class BuddyVC: NSViewController {
             filePath = "Desktop/" + fileName
             
         } else {
-            let fileName = "wubi86_jidian_addition.dct.yaml"
+            let fileName = "wubi86_jidian_addition.dict.yaml"
             filePath = "Library/Rime/" + fileName
         }
         let pathHome = FileManager.default.homeDirectoryForCurrentUser
