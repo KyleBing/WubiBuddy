@@ -30,7 +30,7 @@
 
 ## 流程
 
-![WubiBuddy-WorkFlow](https://user-images.githubusercontent.com/12215982/79714194-9fa84600-8302-11ea-995d-15239ef52c1e.png)
+<img width="500" alt="version1" src="https://user-images.githubusercontent.com/12215982/79714194-9fa84600-8302-11ea-995d-15239ef52c1e.png"/>
 
 
 ## 延伸
