@@ -200,7 +200,7 @@ CA
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="addWord:" target="XfG-lQ-9wD" id="y1t-GS-RlC"/>
+                                                    <action selector="addBtnPressed:" target="rPt-NT-nkU" id="WyC-ut-CU2"/>
                                                 </connections>
                                             </button>
                                         </subviews>

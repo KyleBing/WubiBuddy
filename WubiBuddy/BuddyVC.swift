@@ -12,7 +12,7 @@ import UserNotifications
 class BuddyVC: NSViewController {
     
     // CONST Values
-    let IS_TEST_MODE = true
+    let IS_TEST_MODE = false
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
     let backupFileName = "WubiBuddy-Backup.wubibuddy"
 
@@ -35,22 +35,8 @@ class BuddyVC: NSViewController {
         updateDeleteBtnState()
         writeFile()
     }
-    @IBAction func addWord(_ sender: NSButton) {
-        let code = codeTextField.stringValue.trimmingCharacters(in: .whitespaces)
-        let word = wordTextField.stringValue
-        if code.count == 0 || word.count == 0{
-            codeTextField.becomeFirstResponder()
-        } else {
-            dictionaries.append((code: code, word: word))
-            // 重置输入区
-            codeTextField.stringValue = ""
-            wordTextField.stringValue = ""
-            codeTextField.becomeFirstResponder()
-            
-            tableView.reloadData()
-            updateLabels()
-            writeFile()
-        }
+    @IBAction func addBtnPressed(_ sender: NSButton) {
+        addWord()
     }
     
     @IBAction func reloadFileContent(_ sender: Any) {
@@ -95,9 +81,10 @@ class BuddyVC: NSViewController {
         title = mainFileURL.path
         tableView.dataSource = self
         tableView.delegate = self
+        codeTextField.delegate = self
+        wordTextField.delegate = self
 //        tableView.allowsMultipleSelection = true
         updateDeleteBtnState()
-        updateAddBtnState()
         loadContent()
         tableView.reloadData()
         updateLabels()
@@ -124,7 +111,7 @@ class BuddyVC: NSViewController {
     func writeFile() {
         var output = fileHeader + "...\n\n" // 插入头部
         for item in dictionaries{
-            output = output + "\(item.word)\t\(item.code)" + "\n"
+            output = output + "\(item.word)\t\(item.code)\n"
         }
         var newFileURL = mainFileURL
         newFileURL.deleteLastPathComponent()
@@ -247,6 +234,24 @@ class BuddyVC: NSViewController {
         }
     }
     
+    // 添加用户词
+    func addWord(){
+        let code = codeTextField.stringValue.trimmingCharacters(in: .whitespaces)
+        let word = wordTextField.stringValue
+        if code.count == 0 || word.count == 0{
+            codeTextField.becomeFirstResponder()
+        } else {
+            dictionaries.append((code: code, word: word))
+            // 重置输入区
+            codeTextField.stringValue = ""
+            wordTextField.stringValue = ""
+            codeTextField.becomeFirstResponder()
+            
+            tableView.reloadData()
+            updateLabels()
+            writeFile()
+        }
+    }
     
     // 更新删除按钮状态
     func updateDeleteBtnState() {
@@ -255,15 +260,6 @@ class BuddyVC: NSViewController {
         } else {
              btnDelete.isEnabled = false
         }
-    }
-    
-    // 更新添加按钮状态
-    func updateAddBtnState() {
-//        if codeTextField.stringValue == "" || wordTextField.stringValue == "" {
-//             btnAdd.isEnabled = false
-//        } else {
-//             btnAdd.isEnabled = true
-//        }
     }
     
     // 更新界面中的Label
@@ -301,5 +297,25 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         updateDeleteBtnState()
         updateLabels()
+    }
+}
+
+// MARK: - Keyboard Event
+extension BuddyVC: NSTextFieldDelegate {
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        switch commandSelector {
+        // 当检测到按键是 Enter 回车键时，对应的其它按键可以去 NSResponder 中查看
+        case #selector(NSResponder.insertNewline(_:)):
+            if let inputView =  control as? NSTextField {
+                if inputView == codeTextField {
+                    wordTextField.becomeFirstResponder()    // 光标移动到用户词输入框
+                } else {
+                    addWord()                               // 去执行添加用户词的方法
+                }
+            }
+            return true
+        default:
+            return false
+        }
     }
 }
