@@ -279,7 +279,7 @@ class BuddyVC: NSViewController {
         } else if word.count == 0 {
             wordTextField.becomeFirstResponder()
         } else {
-            dictionaries.append((code: code, word: word))
+            dictionaries.insert((code: code, word: word), at: 0)
             // 重置输入区
             codeTextField.stringValue = ""
             wordTextField.stringValue = ""
