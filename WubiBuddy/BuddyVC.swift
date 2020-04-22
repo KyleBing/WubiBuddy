@@ -39,31 +39,6 @@ class BuddyVC: NSViewController {
     @IBOutlet weak var btnDelete: NSButton!
     @IBOutlet weak var btnAdd: NSButton!
     
-    @IBAction func deleteWord(_ sender: NSButton) {
-        tableView.selectedRowIndexes.forEach { (indexSet) in
-            dictionaries.remove(at: indexSet)
-        }
-        tableView.reloadData()
-        updateLabels()
-        updateDeleteBtnState()
-        writeFile()
-    }
-    @IBAction func addBtnPressed(_ sender: NSButton) {
-        addWord()
-    }
-    
-    @IBAction func reloadFileContent(_ sender: Any) {
-        dictionaries = []
-        loadContent()
-        validateInvalidSubstringExsit()
-        tableView.reloadData()
-        updateLabels()
-        updateDeleteBtnState()
-    }
-    
-    
-    let TextDidChangeNotification = Notification(name: Notification.Name.init("TextDidChange"))
-    
     // MARK: - Variables
     
     // file that this app operate on
@@ -92,11 +67,54 @@ class BuddyVC: NSViewController {
     
     var dictionaries: [(code:String, word: String)] = [] {
         didSet{
-            dictionaries.sort(by: <)
+//            dictionaries.sort(by: <)
         }
     }
-    var fileHeader:String = ""
-    var substringInvalid: [String] = []
+    
+    var fileHeader = ""                                     // 主配置字典头部
+    var substringInvalid: [String] = []                     // 主配置字典词组
+    var sourceFileHeader = ""                               // 根字典头部
+    var sourceDics:[(code: String, word: String)] = []      // 根字典词组
+    
+    
+    // MARK: - IBActions
+    
+    @IBAction func deleteWord(_ sender: NSButton) {
+        var selectedItems :[(code: String, word: String)] = []
+        
+        for itemIndex in tableView.selectedRowIndexes {
+            selectedItems.append(dictionaries[itemIndex])
+        }
+        
+        selectedItems.forEach { (item) in
+            if let index = dictionaries.firstIndex(where: {$0 == item}){
+                dictionaries.remove(at: index)
+            }
+        }
+        tableView.reloadData()
+        updateLabels()
+        updateDeleteBtnState()
+        writeMainFile()
+    }
+    
+    @IBAction func addBtnPressed(_ sender: NSButton) {
+        addWord()
+    }
+    
+    @IBAction func sortDictionaries(_ sender: Any) {
+        dictionaries.sort(by: {$0.code < $1.code})
+        tableView.reloadData()
+        writeMainFile()
+    }
+    
+    @IBAction func reloadFileContent(_ sender: Any) {
+        dictionaries = []
+        loadContent()
+        validateInvalidSubstringExsit()
+        tableView.reloadData()
+        updateLabels()
+        updateDeleteBtnState()
+    }
     
     
     // MARK: - Life Cycle
@@ -136,7 +154,7 @@ class BuddyVC: NSViewController {
     // MARK: - User methods
     
     // 创建文件
-    func writeFile() {
+    func writeMainFile() {
         var output = fileHeader + "...\n\n" // 插入头部
         for item in dictionaries{
             output = output + "\(item.word)\t\(item.code)\n"
@@ -233,7 +251,7 @@ class BuddyVC: NSViewController {
                             }
                         }
                         self.tableView.reloadData()
-                        self.writeFile()
+                        self.writeMainFile()
                     case 1001: // 添加到桌面文件
                         var output = """
                                     # 原文件路径：\(self.mainFileURL.path)
@@ -248,7 +266,7 @@ class BuddyVC: NSViewController {
                         } catch {
                             print("FileManager: replace invalid words file fail")
                         }
-                        self.writeFile()
+                        self.writeMainFile()
                     default: break
                     }
                 }
@@ -271,7 +289,7 @@ class BuddyVC: NSViewController {
             
             tableView.reloadData()
             updateLabels()
-            writeFile()
+            writeMainFile()
         }
     }
     
@@ -293,18 +311,81 @@ class BuddyVC: NSViewController {
     }
     
     
-    
 
+    // 将选中的词条插入到根字典文件中
     @IBAction func insertIntoRootFile(_ sender: Any){
-       
+        if let fileContent = try? String(contentsOf: rootFileURL, encoding: .utf8) {
+            // get header
+            let nsFileContent = NSString(string: fileContent)
+            
+            let headerRange = nsFileContent.range(of: "...")
+            // if lack of "..."line, exit(0)
+            if headerRange.length == 0 {
+                let alert = NSAlert()
+                alert.messageText = "文件中缺少必要分隔行"
+                alert.informativeText = """
+                请确保文件中存在 【 ... 】 三个点这一行
+                请手动添加，再打开程序重试
+                点击确定退出程序
+                """
+                alert.runModal()
+                exit(0)
+            }
+            sourceFileHeader = nsFileContent.substring(to: headerRange.lowerBound)
+            let fileContent = nsFileContent.substring(from: headerRange.upperBound)
+            
+            let tempStrings = fileContent.split(separator: "\n")
+            let substringAll = tempStrings.map {String($0)}
+            let substringValid = substringAll.filter {$0.contains("\t")}
+            substringInvalid = substringAll.filter {!$0.contains("\t") && NSPredicate(format: "SELF MATCHES %@", "^\\w+? {0,10}.+?$").evaluate(with: $0)}
+            
+            for str in substringValid {
+                let tempSubstring = str.split(separator: "\t")
+                sourceDics.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
+            }
+            
+        } else {
+            let alert = NSAlert()
+            alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
+            alert.informativeText = "请前往 https://github.com/KyleBing/rime-wubi86-jidian 下载最新配置文件，再重试"
+            alert.runModal()
+            exit(0)
+        }
+        
+        
+        // locate and insert to sourceDic
+        
+//        for itemIndex in tableView.selectedRowIndexes {
+//            let currentItem = dictionaries[itemIndex]
+//            if let index = sourceDics.firstIndex(where: {$0.code > currentItem.code}) {
+//                print(index)
+//                sourceDics.insert(currentItem, at: index)
+//            }
+//        }
+//
+//        // generate output string
+//        var output = sourceFileHeader + "...\n\n"
+//        sourceDics.forEach { (item) in
+//            output = output + "\(item.word)\t\(item.code)\n"
+//        }
+//
+//        // write to new temp file
+//        FileManager.default.createFile(atPath: rootTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
+//
+//        // replace source file with temp file
+//        do {
+//            try _ = FileManager.default.replaceItemAt(rootFileURL, withItemAt: rootTempFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
+//        } catch {
+//            print("replace file fail")
+//        }
     }
+    
 }
 
 
 
-
-
 // MARK: - Table Datasource and Delegate
+
 extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
     // Table Datasource
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -333,7 +414,9 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
     }
 }
 
+
 // MARK: - Keyboard Event
+
 extension BuddyVC: NSTextFieldDelegate {
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         switch commandSelector {

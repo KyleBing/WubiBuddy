@@ -47,6 +47,12 @@
                                                 <action selector="insertIntoRootFile:" target="Ady-hI-5gd" id="6ds-mn-akc"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Sort Data" id="cLZ-hW-7Yo">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="sortDictionaries:" target="Ady-hI-5gd" id="xcW-i9-cJO"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
