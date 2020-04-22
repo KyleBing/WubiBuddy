@@ -26,6 +26,7 @@ class BuddyVC: NSViewController {
     
     // CONST Values
     let IS_TEST_MODE = true
+    
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
     let backupFileName = "WubiBuddy-Backup.wubibuddy"
 
@@ -65,16 +66,13 @@ class BuddyVC: NSViewController {
         return FilePath.desktop.appendingPathComponent(tempFileName)
     }
     
-    var dictionaries: [(code:String, word: String)] = [] {
-        didSet{
-//            dictionaries.sort(by: <)
-        }
-    }
     
-    var fileHeader = ""                                     // 主配置字典头部
-    var substringInvalid: [String] = []                     // 主配置字典词组
-    var sourceFileHeader = ""                               // 根字典头部
-    var sourceDics:[(code: String, word: String)] = []      // 根字典词组
+    var headerMainFile = ""                                     // 主配置字典头部
+    var headerRootFile = ""                                     // 根字典头部
+
+    var substringInvalid: [String] = []                         // 词组 - 不规范
+    var dictionaries: [(code:String, word: String)] = []        // 词组 - 主配置字典
+    var rootDictionaries: [(code: String, word: String)] = []   // 词组 - 根文件
     
     
     // MARK: - IBActions
@@ -153,7 +151,7 @@ class BuddyVC: NSViewController {
     
     // 创建文件
     func writeMainFile() {
-        var output = fileHeader + "...\n\n" // 插入头部
+        var output = headerMainFile + "...\n\n" // 插入头部
         for item in dictionaries{
             output = output + "\(item.word)\t\(item.code)\n"
         }
@@ -184,7 +182,7 @@ class BuddyVC: NSViewController {
                 alert.runModal()
                 exit(0)
             }
-            fileHeader = nsFileContent.substring(to: headerRange.lowerBound)
+            headerMainFile = nsFileContent.substring(to: headerRange.lowerBound)
             let fileContent = nsFileContent.substring(from: headerRange.upperBound)
             
             let tempStrings = fileContent.split(separator: "\n")
@@ -315,15 +313,16 @@ class BuddyVC: NSViewController {
     // 将选中的词条插入到根字典文件中
     @IBAction func insertIntoRootFile(_ sender: Any){
         if let fileContent = try? String(contentsOf: rootFileURL, encoding: .utf8) {
-            // get header
+            // 1. get header
             let nsFileContent = NSString(string: fileContent)
             
             let headerRange = nsFileContent.range(of: "...")
-            // if lack of "..."line, exit(0)
+            // 2. if lack of "..."line, exit(0)
             if headerRange.length == 0 {
                 let alert = NSAlert()
                 alert.messageText = "文件中缺少必要分隔行"
                 alert.informativeText = """
+                \(rootFileURL.path)
                 请确保文件中存在 【 ... 】 三个点这一行
                 请手动添加，再打开程序重试
                 点击确定退出程序
@@ -331,19 +330,18 @@ class BuddyVC: NSViewController {
                 alert.runModal()
                 exit(0)
             }
-            sourceFileHeader = nsFileContent.substring(to: headerRange.lowerBound)
+            headerRootFile = nsFileContent.substring(to: headerRange.lowerBound)
             let fileContent = nsFileContent.substring(from: headerRange.upperBound)
             
             let tempStrings = fileContent.split(separator: "\n")
             let substringAll = tempStrings.map {String($0)}
             let substringValid = substringAll.filter {$0.contains("\t")}
-            substringInvalid = substringAll.filter {!$0.contains("\t") && NSPredicate(format: "SELF MATCHES %@", "^\\w+? {0,10}.+?$").evaluate(with: $0)}
+//            substringInvalid = substringAll.filter {!$0.contains("\t") && NSPredicate(format: "SELF MATCHES %@", "^\\w+? {0,10}.+?$").evaluate(with: $0)}
             
             for str in substringValid {
                 let tempSubstring = str.split(separator: "\t")
-                sourceDics.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
+                rootDictionaries.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
             }
-            
         } else {
             let alert = NSAlert()
             alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
@@ -353,31 +351,30 @@ class BuddyVC: NSViewController {
         }
         
         
-        // locate and insert to sourceDic
-        
-//        for itemIndex in tableView.selectedRowIndexes {
-//            let currentItem = dictionaries[itemIndex]
-//            if let index = sourceDics.firstIndex(where: {$0.code > currentItem.code}) {
-//                print(index)
-//                sourceDics.insert(currentItem, at: index)
-//            }
-//        }
-//
-//        // generate output string
-//        var output = sourceFileHeader + "...\n\n"
-//        sourceDics.forEach { (item) in
-//            output = output + "\(item.word)\t\(item.code)\n"
-//        }
-//
-//        // write to new temp file
-//        FileManager.default.createFile(atPath: rootTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
-//
-//        // replace source file with temp file
-//        do {
-//            try _ = FileManager.default.replaceItemAt(rootFileURL, withItemAt: rootTempFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
-//        } catch {
-//            print("replace file fail")
-//        }
+        // 3. locate and insert to sourceDic
+        for itemIndex in tableView.selectedRowIndexes {
+            let currentItem = dictionaries[itemIndex]
+            if let index = rootDictionaries.firstIndex(where: {$0.code > currentItem.code}) {
+                print(index)
+                rootDictionaries.insert(currentItem, at: index)
+            }
+        }
+
+        // 4. generate output string
+        var output = headerRootFile + "...\n\n"
+        rootDictionaries.forEach({output = output + "\($0.word)\t\($0.code)\n"})
+
+        // 5. write to new temp file
+        FileManager.default.createFile(atPath: rootTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
+
+        // 6. replace source file with temp file
+        do {
+            if let _ = try FileManager.default.replaceItemAt(rootFileURL, withItemAt: rootTempFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly) {
+                deleteWord(NSButton()) // 7. if successfully save root file delete selected items
+            }
+        } catch {
+            print("replace file:\(rootFileURL.path) fail")
+        }
     }
     
 }

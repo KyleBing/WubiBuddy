@@ -3,4 +3,54 @@
    uuid = "5B9B9B4C-D8E1-4469-9446-8CB45712FBB6"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D405E122-5526-43E0-AFF1-01C7DCAE0F57"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WubiBuddy/BuddyVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
+            landmarkName = "insertIntoRootFile(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D405E122-5526-43E0-AFF1-01C7DCAE0F57 - dffd2e74a3071c0c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WubiBuddy.BuddyVC.insertIntoRootFile(Any) -&gt; ()"
+                  moduleName = "WubiBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Kyle/Developer/WubiBuddy/WubiBuddy/BuddyVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "365"
+                  endingLineNumber = "365"
+                  offsetFromSymbolStart = "7040">
+               </Location>
+               <Location
+                  uuid = "D405E122-5526-43E0-AFF1-01C7DCAE0F57 - 2e9da47b9bccb59e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 ((code: Swift.String, word: Swift.String)) -&gt; () in WubiBuddy.BuddyVC.insertIntoRootFile(Any) -&gt; ()"
+                  moduleName = "WubiBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Kyle/Developer/WubiBuddy/WubiBuddy/BuddyVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "365"
+                  endingLineNumber = "365"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
