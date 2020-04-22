@@ -145,9 +145,7 @@ class BuddyVC: NSViewController {
     }
     
 
-    override var representedObject: Any? {
-        didSet {}
-    }
+    override var representedObject: Any? {didSet {}}
 
     
     
@@ -278,8 +276,10 @@ class BuddyVC: NSViewController {
     func addWord(){
         let code = codeTextField.stringValue.trimmingCharacters(in: .whitespaces)
         let word = wordTextField.stringValue
-        if code.count == 0 || word.count == 0{
+        if code.count == 0 {
             codeTextField.becomeFirstResponder()
+        } else if word.count == 0 {
+            wordTextField.becomeFirstResponder()
         } else {
             dictionaries.append((code: code, word: word))
             // 重置输入区

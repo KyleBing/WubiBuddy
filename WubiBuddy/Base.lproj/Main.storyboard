@@ -195,6 +195,9 @@ CA
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <allowedInputSourceLocales>
+                                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                    </allowedInputSourceLocales>
                                                 </textFieldCell>
                                             </textField>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WYT-fc-yla">
@@ -329,7 +332,7 @@ CA
                                         </tableHeaderView>
                                     </scrollView>
                                     <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qm6-Hm-9qU">
-                                        <rect key="frame" x="0.0" y="0.0" width="362" height="21"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="437" height="21"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w2T-jA-6YA">
                                                 <rect key="frame" x="-2" y="3" width="51" height="16"/>
@@ -357,8 +360,18 @@ CA
                                                     <action selector="deleteWord:" target="rPt-NT-nkU" id="wrM-Qb-MAt"/>
                                                 </connections>
                                             </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="I63-wf-qig">
+                                                <rect key="frame" x="221" y="-7" width="67" height="32"/>
+                                                <buttonCell key="cell" type="push" title="排序" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nYX-2d-QCE">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sortDictionaries:" target="rPt-NT-nkU" id="l1L-hk-gi4"/>
+                                                </connections>
+                                            </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cHO-LJ-zLl">
-                                                <rect key="frame" x="221" y="-7" width="147" height="32"/>
+                                                <rect key="frame" x="296" y="-7" width="147" height="32"/>
                                                 <buttonCell key="cell" type="push" title="重新载入文件内容" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Y8-m7-D7K">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
@@ -373,8 +386,10 @@ CA
                                             <integer value="1000"/>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
