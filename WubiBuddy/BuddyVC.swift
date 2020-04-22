@@ -25,7 +25,7 @@ struct FilePath {
 class BuddyVC: NSViewController {
     
     // CONST Values
-    let IS_TEST_MODE = true
+    let IS_TEST_MODE = false
     
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
     let backupFileName = "WubiBuddy-Backup.wubibuddy"
