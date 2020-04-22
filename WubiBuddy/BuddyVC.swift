@@ -155,7 +155,7 @@ class BuddyVC: NSViewController {
                 let tempSubstring = str.split(separator: "\t")
                 dictionaries.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
             }
-            wordCountLabel.stringValue = "共\(dictionaries.count)条"
+            
         } else {
             let alert = NSAlert()
             alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
@@ -268,8 +268,10 @@ class BuddyVC: NSViewController {
     
     // 更新界面中的Label
     func updateLabels(){
-        wordCountLabel.stringValue = "共\(dictionaries.count)条"
-        selectedCountLabel.stringValue = "已选\(tableView.selectedRowIndexes.count)条"
+        let formatStringWordCount = NSLocalizedString("共 %d 条", comment: "总共多少条的输出字符串")
+        wordCountLabel.stringValue = String.localizedStringWithFormat(formatStringWordCount, dictionaries.count)
+        let formatStringSelectionCount = NSLocalizedString("已选 %d 条", comment: "选择多少条")
+        selectedCountLabel.stringValue = String.localizedStringWithFormat(formatStringSelectionCount, tableView.selectedRowIndexes.count)
     }
 }
 

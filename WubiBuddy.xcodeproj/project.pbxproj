@@ -12,6 +12,7 @@
 		274199CA243446300058AF19 /* BuddyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274199C9243446300058AF19 /* BuddyVC.swift */; };
 		274199CC243446320058AF19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274199CB243446320058AF19 /* Assets.xcassets */; };
 		274199CF243446320058AF19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274199CD243446320058AF19 /* Main.storyboard */; };
+		27F58430244FD7D0000ADE7D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27F58432244FD7D0000ADE7D /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,10 @@
 		274199CE243446320058AF19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		274199D0243446320058AF19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		274199D1243446320058AF19 /* WubiBuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WubiBuddy.entitlements; sourceTree = "<group>"; };
+		27F11FBD244FD13800746944 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		27F5842F244FD75D000ADE7D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		27F58431244FD7D0000ADE7D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		27F58433244FD820000ADE7D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +61,7 @@
 		274199C6243446300058AF19 /* WubiBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				27F58432244FD7D0000ADE7D /* Localizable.strings */,
 				274199C7243446300058AF19 /* AppDelegate.swift */,
 				274199C9243446300058AF19 /* BuddyVC.swift */,
 				274199CB243446320058AF19 /* Assets.xcassets */,
@@ -108,6 +114,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 274199BB243446300058AF19;
 			productRefGroup = 274199C5243446300058AF19 /* Products */;
@@ -125,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				271BC8A7243F24840037BFDD /* README.md in Resources */,
+				27F58430244FD7D0000ADE7D /* Localizable.strings in Resources */,
 				274199CC243446320058AF19 /* Assets.xcassets in Resources */,
 				274199CF243446320058AF19 /* Main.storyboard in Resources */,
 			);
@@ -149,8 +157,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				274199CE243446320058AF19 /* Base */,
+				27F11FBD244FD13800746944 /* en */,
+				27F5842F244FD75D000ADE7D /* zh-Hans */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		27F58432244FD7D0000ADE7D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27F58431244FD7D0000ADE7D /* en */,
+				27F58433244FD820000ADE7D /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -160,6 +179,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -220,6 +240,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

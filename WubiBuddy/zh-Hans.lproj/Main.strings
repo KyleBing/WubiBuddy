@@ -1,0 +1,120 @@
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "0mH-95-RrQ"; */
+"0mH-95-RrQ.title" = "剪切";
+
+/* Class = "NSMenuItem"; title = "WubiBuddy"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "码表助手";
+
+/* Class = "NSButtonCell"; title = "重新载入文件内容"; ObjectID = "2Y8-m7-D7K"; */
+"2Y8-m7-D7K.title" = "重新载入文件内容";
+
+/* Class = "NSMenuItem"; title = "Quit WubiBuddy"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "退出 码表助手";
+
+/* Class = "NSMenuItem"; title = "Data"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "数据";
+
+/* Class = "NSMenuItem"; title = "About WubiBuddy"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "关于";
+
+/* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "7ia-Lj-Dqw"; */
+"7ia-Lj-Dqw.title" = "查找下一个";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "主菜单";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
+"BOF-NM-1cW.title" = "偏好设置";
+
+/* Class = "NSWindow"; title = "Wubi Buddy"; ObjectID = "IQv-IB-iLA"; */
+"IQv-IB-iLA.title" = "码表助手";
+
+/* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "KTk-o7-ktL"; */
+"KTk-o7-ktL.title" = "跳到选择处";
+
+/* Class = "NSTextFieldCell"; title = "共45条"; ObjectID = "P7o-fy-wvi"; */
+"P7o-fy-wvi.title" = "共45条";
+
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "REq-uv-TAy"; */
+"REq-uv-TAy.title" = "搜索";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "RQP-fx-uWH"; */
+"RQP-fx-uWH.title" = "撤消";
+
+/* Class = "NSMenuItem"; title = "Reload File Content"; ObjectID = "S6x-5D-mkt"; */
+"S6x-5D-mkt.title" = "重载文件内容";
+
+/* Class = "NSButtonCell"; title = "添加"; ObjectID = "TKm-Ay-ZsI"; */
+"TKm-Ay-ZsI.title" = "添加";
+
+/* Class = "NSTextFieldCell"; title = "ggtt"; ObjectID = "UZm-pv-CCi"; */
+"UZm-pv-CCi.title" = "ggtt";
+
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "Vbu-9r-5Jx"; */
+"Vbu-9r-5Jx.title" = "查找";
+
+/* Class = "NSMenu"; title = "Data"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "数据";
+
+/* Class = "NSMenu"; title = "Find"; ObjectID = "Z9I-YZ-YOQ"; */
+"Z9I-YZ-YOQ.title" = "查找";
+
+/* Class = "NSTextFieldCell"; placeholderString = "编码"; ObjectID = "bWK-c7-sEI"; */
+"bWK-c7-sEI.placeholderString" = "编码";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "ce5-1v-Btb"; */
+"ce5-1v-Btb.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "dKf-0h-9AL"; */
+"dKf-0h-9AL.title" = "查找上一个";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "eSe-va-dRw"; */
+"eSe-va-dRw.title" = "选择全部";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "euQ-se-Hfh"; */
+"euQ-se-Hfh.title" = "编辑";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "fWl-KR-nwW"; */
+"fWl-KR-nwW.title" = "复制";
+
+/* Class = "NSTextFieldCell"; title = "五笔"; ObjectID = "grP-PI-M8V"; */
+"grP-PI-M8V.title" = "五笔";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "kWL-Cj-gFW"; */
+"kWL-Cj-gFW.title" = "重做";
+
+/* Class = "NSTableColumn"; headerCell.title = "编码"; ObjectID = "mQC-mW-Vjb"; */
+"mQC-mW-Vjb.headerCell.title" = "编码";
+
+/* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "oXW-oO-WGq"; */
+"oXW-oO-WGq.title" = "在选中项目中查找";
+
+/* Class = "NSTableColumn"; headerCell.title = "词条"; ObjectID = "og5-e9-s1f"; */
+"og5-e9-s1f.headerCell.title" = "词条";
+
+/* Class = "NSTextFieldCell"; placeholderString = "词条"; ObjectID = "qKO-gE-npg"; */
+"qKO-gE-npg.placeholderString" = "词条";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "qjx-Xh-vUn"; */
+"qjx-Xh-vUn.title" = "编辑";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "slT-9e-6WA"; */
+"slT-9e-6WA.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "t8E-0h-9IL"; */
+"t8E-0h-9IL.title" = "粘贴";
+
+/* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "tFg-WN-nR4"; */
+"tFg-WN-nR4.title" = "查找并替换";
+
+/* Class = "NSButtonCell"; title = "删除"; ObjectID = "tmd-2c-Z1X"; */
+"tmd-2c-Z1X.title" = "删除";
+
+/* Class = "NSMenu"; title = "WubiBuddy"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "码表助手";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "ufK-Or-rma"; */
+"ufK-Or-rma.title" = "删除";
+
+/* Class = "NSTextFieldCell"; placeholderString = "已选择0条"; ObjectID = "zeU-aa-6xr"; */
+"zeU-aa-6xr.placeholderString" = "已选择0条";

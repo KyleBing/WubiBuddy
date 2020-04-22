@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  WubiBuddy
+
+  Created by Kyle on 2020/4/22.
+  Copyright © 2020 Cyan Maple. All rights reserved.
+*/
+
+"共 %d 条" = "共 %d 条";
+"已选 %d 条" = "已选 %d 条";
