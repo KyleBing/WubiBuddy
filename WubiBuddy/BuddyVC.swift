@@ -312,57 +312,65 @@ class BuddyVC: NSViewController {
 
     // 将选中的词条插入到根字典文件中
     @IBAction func insertIntoRootFile(_ sender: Any){
-        if let fileContent = try? String(contentsOf: rootFileURL, encoding: .utf8) {
-            // 1. get header
-            let nsFileContent = NSString(string: fileContent)
-            
-            let headerRange = nsFileContent.range(of: "...")
-            // 2. if lack of "..."line, exit(0)
-            if headerRange.length == 0 {
+        if rootDictionaries.count == 0 {
+            if let fileContent = try? String(contentsOf: rootFileURL, encoding: .utf8) {
+                // 1. get header
+                let nsFileContent = NSString(string: fileContent)
+                
+                let headerRange = nsFileContent.range(of: "...")
+                // 2. if lack of "..."line, exit(0)
+                if headerRange.length == 0 {
+                    let alert = NSAlert()
+                    alert.messageText = "文件中缺少必要分隔行"
+                    alert.informativeText = """
+                    \(rootFileURL.path)
+                    请确保文件中存在 【 ... 】 三个点这一行
+                    请手动添加，再打开程序重试
+                    点击确定退出程序
+                    """
+                    alert.runModal()
+                    exit(0)
+                }
+                headerRootFile = nsFileContent.substring(to: headerRange.lowerBound)
+                let fileContent = nsFileContent.substring(from: headerRange.upperBound)
+                
+                let tempStrings = fileContent.split(separator: "\n")
+                let substringAll = tempStrings.map {String($0)}
+                let substringValid = substringAll.filter {$0.contains("\t")}
+                //            substringInvalid = substringAll.filter {!$0.contains("\t") && NSPredicate(format: "SELF MATCHES %@", "^\\w+? {0,10}.+?$").evaluate(with: $0)}
+                
+                for str in substringValid {
+                    let tempSubstring = str.split(separator: "\t")
+                    rootDictionaries.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
+                }
+            } else {
                 let alert = NSAlert()
-                alert.messageText = "文件中缺少必要分隔行"
-                alert.informativeText = """
-                \(rootFileURL.path)
-                请确保文件中存在 【 ... 】 三个点这一行
-                请手动添加，再打开程序重试
-                点击确定退出程序
-                """
+                alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
+                alert.informativeText = "请前往 https://github.com/KyleBing/rime-wubi86-jidian 下载最新配置文件，再重试"
                 alert.runModal()
                 exit(0)
             }
-            headerRootFile = nsFileContent.substring(to: headerRange.lowerBound)
-            let fileContent = nsFileContent.substring(from: headerRange.upperBound)
-            
-            let tempStrings = fileContent.split(separator: "\n")
-            let substringAll = tempStrings.map {String($0)}
-            let substringValid = substringAll.filter {$0.contains("\t")}
-//            substringInvalid = substringAll.filter {!$0.contains("\t") && NSPredicate(format: "SELF MATCHES %@", "^\\w+? {0,10}.+?$").evaluate(with: $0)}
-            
-            for str in substringValid {
-                let tempSubstring = str.split(separator: "\t")
-                rootDictionaries.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
-            }
-        } else {
-            let alert = NSAlert()
-            alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
-            alert.informativeText = "请前往 https://github.com/KyleBing/rime-wubi86-jidian 下载最新配置文件，再重试"
-            alert.runModal()
-            exit(0)
         }
+        
         
         
         // 3. locate and insert to sourceDic
         for itemIndex in tableView.selectedRowIndexes {
             let currentItem = dictionaries[itemIndex]
-            if let index = rootDictionaries.firstIndex(where: {$0.code > currentItem.code}) {
+            if rootDictionaries.count == 0{
+                rootDictionaries.append(currentItem)
+            } else if let index = rootDictionaries.firstIndex(where: { $0.code >= currentItem.code }){
                 print(index)
                 rootDictionaries.insert(currentItem, at: index)
+            } else {
+                rootDictionaries.append(currentItem)
             }
         }
 
         // 4. generate output string
         var output = headerRootFile + "...\n\n"
-        rootDictionaries.forEach({output = output + "\($0.word)\t\($0.code)\n"})
+        
+        rootDictionaries.forEach({output = output + "\($0.word)\t\($0.code)\n"}) // 耗时进程
 
         // 5. write to new temp file
         FileManager.default.createFile(atPath: rootTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
