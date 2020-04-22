@@ -9,10 +9,23 @@
 import Cocoa
 import UserNotifications
 
+struct FilePath {
+    public static var desktop: URL{
+        let pathHome = FileManager.default.homeDirectoryForCurrentUser
+        let filePath = pathHome.appendingPathComponent("Desktop/")
+        return filePath
+    }
+    public static var rime: URL{
+        let pathHome = FileManager.default.homeDirectoryForCurrentUser
+        let filePath = pathHome.appendingPathComponent("Library/Rime/")
+        return filePath
+    }
+}
+
 class BuddyVC: NSViewController {
     
     // CONST Values
-    let IS_TEST_MODE = false
+    let IS_TEST_MODE = true
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
     let backupFileName = "WubiBuddy-Backup.wubibuddy"
 
@@ -52,20 +65,31 @@ class BuddyVC: NSViewController {
     let TextDidChangeNotification = Notification(name: Notification.Name.init("TextDidChange"))
     
     // MARK: - Variables
+    
+    // file that this app operate on
     var mainFileURL:URL{
-        var filePath = ""
-        if (IS_TEST_MODE) {
-            let fileName = "Rime.txt"
-            filePath = "Desktop/" + fileName
-            
-        } else {
-            let fileName = "wubi86_jidian_addition.dict.yaml"
-            filePath = "Library/Rime/" + fileName
-        }
-        let pathHome = FileManager.default.homeDirectoryForCurrentUser
-        let userDictUrl = pathHome.appendingPathComponent(filePath)
-        return userDictUrl
+        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent("Rime.txt") : FilePath.rime.appendingPathComponent("wubi86_jidian_addition.dict.yaml")
     }
+    var mainTempFileURL:URL{
+        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent(tempFileName) : FilePath.rime.appendingPathComponent(tempFileName)
+    }
+    
+    // root dict.yaml file
+    var rootFileURL:URL{
+        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent("Source.txt") : FilePath.rime.appendingPathComponent("wubi86_jidian.dict.yaml")
+    }
+    var rootTempFileURL:URL{
+        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent(tempFileName) : FilePath.rime.appendingPathComponent(tempFileName)
+    }
+    
+    // invalid words output file
+    var invalidFileURL:URL{
+        return FilePath.desktop.appendingPathComponent("Rime不规范的词条.txt")
+    }
+    var invalidTempFileURL:URL{
+        return FilePath.desktop.appendingPathComponent(tempFileName)
+    }
+    
     var dictionaries: [(code:String, word: String)] = [] {
         didSet{
             dictionaries.sort(by: <)
@@ -74,7 +98,9 @@ class BuddyVC: NSViewController {
     var fileHeader:String = ""
     var substringInvalid: [String] = []
     
+    
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = mainFileURL.path
@@ -83,7 +109,7 @@ class BuddyVC: NSViewController {
         codeTextField.delegate = self
         wordTextField.delegate = self
         
-//        tableView.allowsMultipleSelection = true
+        tableView.allowsMultipleSelection = true
         updateDeleteBtnState()
         loadContent()
         tableView.reloadData()
@@ -106,19 +132,18 @@ class BuddyVC: NSViewController {
     }
 
     
+    
     // MARK: - User methods
+    
     // 创建文件
     func writeFile() {
         var output = fileHeader + "...\n\n" // 插入头部
         for item in dictionaries{
             output = output + "\(item.word)\t\(item.code)\n"
         }
-        var newFileURL = mainFileURL
-        newFileURL.deleteLastPathComponent()
-        newFileURL = newFileURL.appendingPathComponent(tempFileName)
-        FileManager.default.createFile(atPath:newFileURL.path, contents: output.data(using: .utf8), attributes: nil)
+        FileManager.default.createFile(atPath: mainTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
         do {
-            try _ = FileManager.default.replaceItemAt(mainFileURL, withItemAt: newFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
+            try _ = FileManager.default.replaceItemAt(mainFileURL, withItemAt: mainTempFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
         } catch {
             print("replace file fail")
         }
@@ -217,16 +242,9 @@ class BuddyVC: NSViewController {
                         for item in self.substringInvalid {
                             output = output + item + "\n"
                         }
-                        let fileName = "Rime不规范的词条.txt"
-                        let filePath = "Desktop/" + fileName
-                        let pathHome = FileManager.default.homeDirectoryForCurrentUser
-                        let invalidWordsFileURL = pathHome.appendingPathComponent(filePath)
-                        var newFileURL = invalidWordsFileURL
-                        newFileURL.deleteLastPathComponent()
-                        newFileURL = newFileURL.appendingPathComponent(self.tempFileName)
-                        FileManager.default.createFile(atPath:newFileURL.path, contents: output.data(using: .utf8), attributes: nil)
+                        FileManager.default.createFile(atPath: self.invalidTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
                         do {
-                            try _ = FileManager.default.replaceItemAt(invalidWordsFileURL, withItemAt: newFileURL, backupItemName: self.backupFileName, options: .usingNewMetadataOnly)
+                            try _ = FileManager.default.replaceItemAt(self.invalidFileURL, withItemAt: self.invalidTempFileURL, backupItemName: self.backupFileName, options: .usingNewMetadataOnly)
                         } catch {
                             print("FileManager: replace invalid words file fail")
                         }
@@ -273,7 +291,16 @@ class BuddyVC: NSViewController {
         let formatStringSelectionCount = NSLocalizedString("已选 %d 条", comment: "选择多少条")
         selectedCountLabel.stringValue = String.localizedStringWithFormat(formatStringSelectionCount, tableView.selectedRowIndexes.count)
     }
+    
+    
+    
+
+    @IBAction func insertIntoRootFile(_ sender: Any){
+       
+    }
 }
+
+
 
 
 

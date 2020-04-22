@@ -41,6 +41,12 @@
                                                 <action selector="reloadFileContent:" target="Ady-hI-5gd" id="lH6-2F-PEn"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Insert Into Root File" id="cZw-7k-uiE">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertIntoRootFile:" target="Ady-hI-5gd" id="6ds-mn-akc"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
