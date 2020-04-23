@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		271BC8A7243F24840037BFDD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 271BC8A6243F24840037BFDD /* README.md */; };
+		2736D16C24512C720097929B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2736D16A24512C720097929B /* InfoPlist.strings */; };
 		274199C8243446300058AF19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274199C7243446300058AF19 /* AppDelegate.swift */; };
 		274199CA243446300058AF19 /* BuddyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274199C9243446300058AF19 /* BuddyVC.swift */; };
 		274199CC243446320058AF19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274199CB243446320058AF19 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		271BC8A6243F24840037BFDD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2736D16B24512C720097929B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		274199C4243446300058AF19 /* WubiBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WubiBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		274199C7243446300058AF19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		274199C9243446300058AF19 /* BuddyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyVC.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				274199CB243446320058AF19 /* Assets.xcassets */,
 				274199CD243446320058AF19 /* Main.storyboard */,
 				274199D0243446320058AF19 /* Info.plist */,
+				2736D16A24512C720097929B /* InfoPlist.strings */,
 				274199D1243446320058AF19 /* WubiBuddy.entitlements */,
 			);
 			path = WubiBuddy;
@@ -135,6 +138,7 @@
 				27F58430244FD7D0000ADE7D /* Localizable.strings in Resources */,
 				274199CC243446320058AF19 /* Assets.xcassets in Resources */,
 				274199CF243446320058AF19 /* Main.storyboard in Resources */,
+				2736D16C24512C720097929B /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +157,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		2736D16A24512C720097929B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2736D16B24512C720097929B /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		274199CD243446320058AF19 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -298,7 +310,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 4J6QFDHMK2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = WubiBuddy/Info.plist;
@@ -307,7 +319,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.12;
+				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.kylebing.WubiBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = "";
@@ -323,7 +335,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 4J6QFDHMK2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = WubiBuddy/Info.plist;
@@ -332,7 +344,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.12;
+				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.kylebing.WubiBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = "";

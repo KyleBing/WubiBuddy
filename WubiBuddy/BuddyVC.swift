@@ -38,6 +38,7 @@ class BuddyVC: NSViewController {
     @IBOutlet weak var wordCountLabel: NSTextField!
     @IBOutlet weak var selectedCountLabel: NSTextField!
     @IBOutlet weak var btnDelete: NSButton!
+    @IBOutlet weak var btnInsert: NSButton!
     @IBOutlet weak var btnAdd: NSButton!
     
     // MARK: - Variables
@@ -91,7 +92,7 @@ class BuddyVC: NSViewController {
         }
         tableView.reloadData()
         updateLabels()
-        updateDeleteBtnState()
+        updateButtonState()
         writeMainFile()
     }
     
@@ -111,7 +112,7 @@ class BuddyVC: NSViewController {
         validateInvalidSubstringExsit()
         tableView.reloadData()
         updateLabels()
-        updateDeleteBtnState()
+        updateButtonState()
     }
     
     
@@ -126,7 +127,7 @@ class BuddyVC: NSViewController {
         wordTextField.delegate = self
         
         tableView.allowsMultipleSelection = true
-        updateDeleteBtnState()
+        updateButtonState()
         loadContent()
         tableView.reloadData()
         updateLabels()
@@ -292,11 +293,13 @@ class BuddyVC: NSViewController {
     }
     
     // 更新删除按钮状态
-    func updateDeleteBtnState() {
+    func updateButtonState() {
         if tableView.selectedRowIndexes.count > 0{
-             btnDelete.isEnabled = true
+            btnDelete.isEnabled = true
+            btnInsert.isEnabled = true
         } else {
-             btnDelete.isEnabled = false
+            btnDelete.isEnabled = false
+            btnInsert.isEnabled = false
         }
     }
     
@@ -309,7 +312,6 @@ class BuddyVC: NSViewController {
     }
     
     
-
     // 将选中的词条插入到根字典文件中
     @IBAction func insertIntoRootFile(_ sender: Any){
         if rootDictionaries.count == 0 {
@@ -414,7 +416,7 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        updateDeleteBtnState()
+        updateButtonState()
         updateLabels()
     }
 }
