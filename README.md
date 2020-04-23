@@ -1,7 +1,7 @@
 
 <img width="654" alt="version1" src="https://user-images.githubusercontent.com/12215982/79558725-3395ca00-80d7-11ea-9401-ed6a4967eaac.png">
 
-# 五笔用户词添加工具  for Rime
+# 码表助手 for Rime
 > macOS version v10.15
 
 对于这个添加用户词的工具，有好的想法可以从 `issue` 中提出来
