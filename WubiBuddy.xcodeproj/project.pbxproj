@@ -44,10 +44,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2736D17C245184380097929B /* localization */ = {
+			isa = PBXGroup;
+			children = (
+				27F58432244FD7D0000ADE7D /* Localizable.strings */,
+				2736D16A24512C720097929B /* InfoPlist.strings */,
+			);
+			path = localization;
+			sourceTree = "<group>";
+		};
 		274199BB243446300058AF19 = {
 			isa = PBXGroup;
 			children = (
 				271BC8A6243F24840037BFDD /* README.md */,
+				2736D17C245184380097929B /* localization */,
 				274199C6243446300058AF19 /* WubiBuddy */,
 				274199C5243446300058AF19 /* Products */,
 			);
@@ -64,13 +74,11 @@
 		274199C6243446300058AF19 /* WubiBuddy */ = {
 			isa = PBXGroup;
 			children = (
-				27F58432244FD7D0000ADE7D /* Localizable.strings */,
 				274199C7243446300058AF19 /* AppDelegate.swift */,
 				274199C9243446300058AF19 /* BuddyVC.swift */,
-				274199CB243446320058AF19 /* Assets.xcassets */,
 				274199CD243446320058AF19 /* Main.storyboard */,
+				274199CB243446320058AF19 /* Assets.xcassets */,
 				274199D0243446320058AF19 /* Info.plist */,
-				2736D16A24512C720097929B /* InfoPlist.strings */,
 				274199D1243446320058AF19 /* WubiBuddy.entitlements */,
 			);
 			path = WubiBuddy;
