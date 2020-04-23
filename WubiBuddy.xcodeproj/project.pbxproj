@@ -19,6 +19,7 @@
 /* Begin PBXFileReference section */
 		271BC8A6243F24840037BFDD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2736D16B24512C720097929B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		2736D17B245183340097929B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		274199C4243446300058AF19 /* 码表助手.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "码表助手.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		274199C7243446300058AF19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		274199C9243446300058AF19 /* BuddyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyVC.swift; sourceTree = "<group>"; };
@@ -161,6 +162,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2736D16B24512C720097929B /* zh-Hans */,
+				2736D17B245183340097929B /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

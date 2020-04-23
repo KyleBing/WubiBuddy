@@ -1,0 +1,7 @@
+
+/* Bundle name */
+"CFBundleName" = "WubiBuddy";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "Email: kylebing@163.com\nGithub: https://github.com/KyleBing/WubiBuddy\nCopyright © 2020 KyleBing. All rights reserved.";
+

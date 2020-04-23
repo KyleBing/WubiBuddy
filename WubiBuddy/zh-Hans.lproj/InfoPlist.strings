@@ -1,9 +1,7 @@
-/* Bundle display name */
-"CFBundleDisplayName" = "码表助手";
 
 /* Bundle name */
 "CFBundleName" = "码表助手";
 
 /* Copyright (human-readable) */
-"NSHumanReadableCopyright" = "Copyright © 2020 Kyle Bing. All rights reserved.";
+"NSHumanReadableCopyright" = "邮箱: kylebing@163.com\n项目地址: https://github.com/KyleBing/WubiBuddy\n\nCopyright © 2020 KyleBing. All rights reserved.";
 
