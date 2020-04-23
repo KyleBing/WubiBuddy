@@ -4,7 +4,8 @@
 # 码表助手 for Rime
 > macOS version v10.15
 
-对于这个添加用户词的工具，有好的想法可以从 `issue` 中提出来
+该工具跟 [86极点码表配置方案](https://github.com/KyleBing/rime-wubi86-jidian) 搭配使用
+有好的想法可以从 `issue` 中提出来
 基于自己是业余时间现学现做，可能会耗费比较长时间，慢慢来。
 
 ## 使用说明
