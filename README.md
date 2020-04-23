@@ -1,5 +1,5 @@
 
-<img width="654" alt="version1" src="https://user-images.githubusercontent.com/12215982/79558725-3395ca00-80d7-11ea-9401-ed6a4967eaac.png">
+<img width="629" alt="v1 13" src="https://user-images.githubusercontent.com/12215982/80066778-36793a80-856f-11ea-8f7f-504ee130222b.png">
 
 # 码表助手 for Rime
 > macOS version v10.15
