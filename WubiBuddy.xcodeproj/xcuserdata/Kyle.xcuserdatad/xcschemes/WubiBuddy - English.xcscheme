@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "274199C3243446300058AF19"
-               BuildableName = "WubiBuddy.app"
-               BlueprintName = "WubiBuddy"
+               BuildableName = "&#x7801;&#x8868;&#x52a9;&#x624b;.app"
+               BlueprintName = "&#x7801;&#x8868;&#x52a9;&#x624b;"
                ReferencedContainer = "container:WubiBuddy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "274199C3243446300058AF19"
-            BuildableName = "WubiBuddy.app"
-            BlueprintName = "WubiBuddy"
+            BuildableName = "&#x7801;&#x8868;&#x52a9;&#x624b;.app"
+            BlueprintName = "&#x7801;&#x8868;&#x52a9;&#x624b;"
             ReferencedContainer = "container:WubiBuddy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -63,8 +63,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "274199C3243446300058AF19"
-            BuildableName = "WubiBuddy.app"
-            BlueprintName = "WubiBuddy"
+            BuildableName = "&#x7801;&#x8868;&#x52a9;&#x624b;.app"
+            BlueprintName = "&#x7801;&#x8868;&#x52a9;&#x624b;"
             ReferencedContainer = "container:WubiBuddy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

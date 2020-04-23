@@ -1,17 +1,17 @@
 /* Class = "NSButtonCell"; title = "重载文件内容"; ObjectID = "2Y8-m7-D7K"; */
-"2Y8-m7-D7K.title" = "Reload File Content";
+"2Y8-m7-D7K.title" = "Reload File";
 
 /* Class = "NSTextFieldCell"; placeholderString = "编码"; ObjectID = "bWK-c7-sEI"; */
 "bWK-c7-sEI.placeholderString" = "Code";
 
 /* Class = "NSButtonCell"; title = "插入到主词库"; ObjectID = "M9Z-YK-k2n"; */
-"M9Z-YK-k2n.title" = "Insert Into Root File";
+"M9Z-YK-k2n.title" = "Add to Root File";
 
 /* Class = "NSButtonCell"; title = "排序"; ObjectID = "nYX-2d-QCE"; */
 "nYX-2d-QCE.title" = "Sort";
 
 /* Class = "NSTextFieldCell"; title = "共45条"; ObjectID = "P7o-fy-wvi"; */
-"P7o-fy-wvi.title" = "Total: 45";
+"P7o-fy-wvi.title" = "Tol: 45";
 
 /* Class = "NSTextFieldCell"; placeholderString = "词条"; ObjectID = "qKO-gE-npg"; */
 "qKO-gE-npg.placeholderString" = "Phrase";
@@ -23,5 +23,5 @@
 "tmd-2c-Z1X.title" = "Delete";
 
 /* Class = "NSTextFieldCell"; placeholderString = "已选择0条"; ObjectID = "zeU-aa-6xr"; */
-"zeU-aa-6xr.placeholderString" = "Selection: 0";
+"zeU-aa-6xr.placeholderString" = "Sel: 0";
 
