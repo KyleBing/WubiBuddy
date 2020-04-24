@@ -161,7 +161,7 @@ CA
                     <window key="window" title="Wubi Buddy" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="174" y="628" width="478" height="270"/>
+                        <rect key="contentRect" x="278" y="260" width="350" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
@@ -467,7 +467,7 @@ CA
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="Bso-eK-YLh"/>
             </objects>
-            <point key="canvasLocation" x="77" y="800"/>
+            <point key="canvasLocation" x="76.5" y="800"/>
         </scene>
     </scenes>
 </document>
