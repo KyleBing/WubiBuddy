@@ -72,14 +72,14 @@ class BuddyVC: NSViewController {
     var headerRootFile = ""                                     // 根字典头部
 
     var substringInvalid: [String] = []                         // 词组 - 不规范
-    var dictionaries: [(code:String, word: String)] = []        // 词组 - 主配置字典
-    var rootDictionaries: [(code: String, word: String)] = []   // 词组 - 根文件
+    var dictionaries: [Phrase] = []        // 词组 - 主配置字典
+    var rootDictionaries: [Phrase] = []    // 词组 - 根文件
     
     
     // MARK: - IBActions
     
     @IBAction func deleteWord(_ sender: NSButton) {
-        var selectedItems :[(code: String, word: String)] = []
+        var selectedItems :[Phrase] = []
         
         for itemIndex in tableView.selectedRowIndexes {
             selectedItems.append(dictionaries[itemIndex])
@@ -193,9 +193,8 @@ class BuddyVC: NSViewController {
 
             for str in substringValid {
                 let tempSubstring = str.split(separator: "\t")
-                dictionaries.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
+                dictionaries.append(Phrase(code: String(tempSubstring[1]), word: String(tempSubstring[0])))
             }
-            
         } else {
             let alert = NSAlert()
             alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
@@ -241,7 +240,7 @@ class BuddyVC: NSViewController {
                                     let wordMatch = regWord.firstMatch(in: item, options: .reportCompletion, range: strRangeMax){
                                     let codeString = NSString(string: item).substring(with: codeMatch.range)
                                     let wordString = NSString(string: item).substring(with: wordMatch.range)
-                                    self.dictionaries.append((code: codeString, word: wordString))
+                                    self.dictionaries.append(Phrase(code: codeString, word: wordString))
                                 }
                             } catch {
                                 print("Init regular expression fail")
@@ -280,7 +279,7 @@ class BuddyVC: NSViewController {
         } else if word.count == 0 {
             wordTextField.becomeFirstResponder()
         } else {
-            dictionaries.insert((code: code, word: word), at: 0)
+            dictionaries.insert(Phrase(code: code, word: word), at: 0)
             // 重置输入区
             codeTextField.stringValue = ""
             wordTextField.stringValue = ""
@@ -343,7 +342,7 @@ class BuddyVC: NSViewController {
                 
                 for str in substringValid {
                     let tempSubstring = str.split(separator: "\t")
-                    rootDictionaries.append((code: String(tempSubstring[1]), word: String(tempSubstring[0])))
+                    rootDictionaries.append(Phrase(code: String(tempSubstring[1]), word: String(tempSubstring[0])))
                 }
             } else {
                 let alert = NSAlert()
@@ -362,7 +361,7 @@ class BuddyVC: NSViewController {
             if rootDictionaries.count == 0{
                 rootDictionaries.append(currentItem)
             } else if let index = rootDictionaries.firstIndex(where: { $0.code >= currentItem.code }){
-                print(index)
+                print("\(currentItem.word): \(index)")
                 rootDictionaries.insert(currentItem, at: index)
             } else {
                 rootDictionaries.append(currentItem)
@@ -372,7 +371,9 @@ class BuddyVC: NSViewController {
         // 4. generate output string
         var output = headerRootFile + "...\n\n"
         
-        rootDictionaries.forEach({output = output + "\($0.word)\t\($0.code)\n"}) // 耗时进程
+        rootDictionaries.forEach({output = output + "\($0.word)\t\($0.code)\n"})
+        /// __耗时进程__
+        /// 用 Phrase 对象方法会慢一倍
 
         // 5. write to new temp file
         FileManager.default.createFile(atPath: rootTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
