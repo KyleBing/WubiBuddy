@@ -237,7 +237,7 @@ class RootFileEditor: NSViewController {
     // 更新界面中的Label
     func updateLabels(){
         let formatStringWordCount = NSLocalizedString("共 %d 条", comment: "总共多少条的输出字符串")
-        wordCountLabel.stringValue = String.localizedStringWithFormat(formatStringWordCount, mainDictionaries.count)
+        wordCountLabel.stringValue = String.localizedStringWithFormat(formatStringWordCount, searchDictionies.count)
         let formatStringSelectionCount = NSLocalizedString("已选 %d 条", comment: "选择多少条")
         selectedCountLabel.stringValue = String.localizedStringWithFormat(formatStringSelectionCount, tableView.selectedRowIndexes.count)
     }
