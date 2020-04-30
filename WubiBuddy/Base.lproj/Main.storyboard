@@ -641,7 +641,7 @@ CA
                                         </tableHeaderView>
                                     </scrollView>
                                     <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="30" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tYj-IY-5NB">
-                                        <rect key="frame" x="0.0" y="0.0" width="380" height="62"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sar-Ir-ZZt">
                                                 <rect key="frame" x="0.0" y="23" width="122" height="16"/>
@@ -673,7 +673,7 @@ CA
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pfb-k8-c0O">
-                                                <rect key="frame" x="152" y="21" width="228" height="21"/>
+                                                <rect key="frame" x="152" y="21" width="168" height="21"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fMm-mP-O9N">
                                                         <rect key="frame" x="-6" y="-7" width="67" height="32"/>
@@ -685,18 +685,8 @@ CA
                                                             <action selector="deleteWord:" target="t9g-uN-WNz" id="oAz-Xh-xJ3"/>
                                                         </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-W5-YGM">
-                                                        <rect key="frame" x="54" y="-7" width="67" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="排序" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Dl2-Hj-d5c">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" usesAppearanceFont="YES"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="sortDictionaries:" target="t9g-uN-WNz" id="l35-7U-JdG"/>
-                                                        </connections>
-                                                    </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KJ4-v2-iu1">
-                                                        <rect key="frame" x="114" y="-7" width="120" height="32"/>
+                                                        <rect key="frame" x="54" y="-7" width="120" height="32"/>
                                                         <buttonCell key="cell" type="push" title="重载文件内容" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tOn-H4-Ofw">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -709,10 +699,8 @@ CA
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
-                                                    <integer value="1000"/>
                                                 </visibilityPriorities>
                                                 <customSpacing>
-                                                    <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                 </customSpacing>

@@ -11,13 +11,6 @@ import UserNotifications
 
 
 class RootFileEditor: NSViewController {
-    
-    // CONST Values
-    let tempFileName = "WubiBuddy-Temp.wubibuddy"
-    let backupFileName = "WubiBuddy-Backup.wubibuddy"
-    
-     var IS_TEST_MODE = true
-
     // MARK: - Outlet and Methods
     // Storyboard
     @IBOutlet weak var codeTextField: NSTextField!
@@ -28,28 +21,12 @@ class RootFileEditor: NSViewController {
     
     // MARK: - Variables
     
-    // file that this app operate on
-    var mainFileURL:URL{
-        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent("Source.txt") : FilePath.rime.appendingPathComponent("wubi86_jidian.dict.yaml")
-    }
-    var mainTempFileURL:URL{
-        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent(tempFileName) : FilePath.rime.appendingPathComponent(tempFileName)
-    }
-    
-    // invalid words output file
-    var invalidFileURL:URL{
-        return FilePath.desktop.appendingPathComponent("Rime主码表-不规范的词条.txt")
-    }
-    var invalidTempFileURL:URL{
-        return FilePath.desktop.appendingPathComponent(tempFileName)
-    }
-    
     var headerMainFile = ""                     // 主配置字典头部
     var headerRootFile = ""                     // 根字典头部
 
     var substringInvalid: [String] = []         // 词组 - 不规范
-    var mainDictionaries: [Phrase] = []          // 词组 - 主配置字典
-    var searchDictionies: [Phrase] = [] {         // 词组 - 搜索词条
+    var mainDictionaries: [Phrase] = []         // 词组 - 主配置字典
+    var searchDictionies: [Phrase] = [] {       // 词组 - 搜索词条
         didSet {
             tableView.reloadData()
             updateLabels()
@@ -79,11 +56,11 @@ class RootFileEditor: NSViewController {
         searchPhrases()
     }
     
-    @IBAction func sortDictionaries(_ sender: Any) {
-        mainDictionaries.sort(by: {$0.code < $1.code})
-        searchDictionies = mainDictionaries
-        writeMainFile()
-    }
+//    @IBAction func sortDictionaries(_ sender: Any) {
+//        mainDictionaries.sort(by: {$0.code < $1.code})
+//        searchDictionies = mainDictionaries
+//        writeMainFile()
+//    }
     
     @IBAction func reloadFileContent(_ sender: Any) {
         mainDictionaries = []
@@ -98,7 +75,7 @@ class RootFileEditor: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = mainFileURL.path
+        title = FilePath.rootFileURL.path
         tableView.dataSource = self
         tableView.delegate = self
         codeTextField.delegate = self
@@ -112,7 +89,7 @@ class RootFileEditor: NSViewController {
     
     override func viewWillAppear() {
         // set window name
-        view.window?.title = String(mainFileURL.path.split(separator: "/").last!)
+        view.window?.title = String(FilePath.rootFileURL.path.split(separator: "/").last!)
     }
     
     override func viewDidAppear() {
@@ -133,9 +110,9 @@ class RootFileEditor: NSViewController {
         mainDictionaries.forEach { (item) in
             output.append("\(item.word)\t\(item.code)\n")
         }
-        FileManager.default.createFile(atPath: mainTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
+        FileManager.default.createFile(atPath: FilePath.mainTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
         do {
-            try _ = FileManager.default.replaceItemAt(mainFileURL, withItemAt: mainTempFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
+            try _ = FileManager.default.replaceItemAt(FilePath.rootFileURL, withItemAt: FilePath.mainTempFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
         } catch {
             print("replace file fail")
         }
@@ -143,7 +120,7 @@ class RootFileEditor: NSViewController {
     
     // 载入文件内容
     func loadMainFileContent() {
-        if let fileContent = try? String(contentsOf: mainFileURL, encoding: .utf8) {
+        if let fileContent = try? String(contentsOf: FilePath.rootFileURL, encoding: .utf8) {
             // 根据 ... 的位置获取文件头部
             let nsFileContent = NSString(string: fileContent)
             
@@ -180,7 +157,7 @@ class RootFileEditor: NSViewController {
             searchDictionies = mainDictionaries
         } else {
             let alert = NSAlert()
-            alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
+            alert.messageText = "缺少: \(FilePath.rootFileURL.lastPathComponent) "
             alert.informativeText = "请前往 https://github.com/KyleBing/rime-wubi86-jidian 下载最新配置文件，再重试"
             alert.runModal()
             exit(0)
@@ -192,22 +169,21 @@ class RootFileEditor: NSViewController {
         // if invalid string exsit: alert about it
         if !substringInvalid.isEmpty {
             var invalidStringCombine = ""
-            for item in substringInvalid {
-                invalidStringCombine = invalidStringCombine + (item + "\n")
+            for i in 0..<8 {
+                invalidStringCombine.append("\(substringInvalid[i])\n")
             }
             let userInfo = [NSLocalizedDescriptionKey: "存在不规范词条"]
             let error =  NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: userInfo)
             let alert = NSAlert(error: error)
-            alert.messageText = "存在不规范词条，添加到词库中？"
+            alert.messageText = "存在不规范词条 \(substringInvalid.count) 条"
             alert.informativeText = """
-                                    【 添加 】：保存到当前词库中
-                                    【 取消 】：保存在桌面“\(invalidFileURL.lastPathComponent)”文件中
-                                    -----------------------------\n
+                                    选择 [添加到词库]
+                                    或者 [保存到文件]：
+                                        ~/桌面/\(FilePath.rootInvalidFileURL.lastPathComponent)\n
                                     \(invalidStringCombine)
-                                    -----------------------------
                                     """
-            alert.addButton(withTitle: "添加")
-            alert.addButton(withTitle: "取消")
+            alert.addButton(withTitle: "添加到词库")
+            alert.addButton(withTitle: "保存到文件")
 
             if let window = view.window {
                 alert.beginSheetModal(for: window) {[unowned self] (response) in
@@ -233,15 +209,15 @@ class RootFileEditor: NSViewController {
                         self.writeMainFile()
                     case 1001: // 添加到桌面文件
                         var output = """
-                                    # 原文件路径：\(self.mainFileURL.path)
+                                    # 原文件路径：\(FilePath.rootFileURL.path)
                                     # 这些是配置文件中格式不正确的词条：\n\n
                                     """ // 插入头部
                         for item in self.substringInvalid {
                             output = output + item + "\n"
                         }
-                        FileManager.default.createFile(atPath: self.invalidTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
+                        FileManager.default.createFile(atPath: FilePath.rootInvalidTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
                         do {
-                            try _ = FileManager.default.replaceItemAt(self.invalidFileURL, withItemAt: self.invalidTempFileURL, backupItemName: self.backupFileName, options: .usingNewMetadataOnly)
+                            try _ = FileManager.default.replaceItemAt(FilePath.rootInvalidFileURL, withItemAt: FilePath.rootInvalidTempFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly)
                         } catch {
                             print("FileManager: replace invalid words file fail")
                         }
