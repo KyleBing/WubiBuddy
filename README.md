@@ -8,7 +8,7 @@
 有好的想法可以从 `issue` 中提出来
 
 ## 下载：
-[码表助手v1.13](https://github.com/KyleBing/WubiBuddy/releases)
+[码表助手](https://github.com/KyleBing/WubiBuddy/releases)
 
 ## 使用说明
 1. 输入编码和词语后，回车添加用户词
