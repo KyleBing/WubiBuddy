@@ -13,7 +13,7 @@ import UserNotifications
 class RootFileEditor: NSViewController {
     // MARK: - Outlet and Methods
     // Storyboard
-    @IBOutlet weak var codeTextField: NSTextField!
+    @IBOutlet weak var keywordTextField: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var wordCountLabel: NSTextField!
     @IBOutlet weak var selectedCountLabel: NSTextField!
@@ -78,7 +78,7 @@ class RootFileEditor: NSViewController {
         title = FilePath.rootFileURL.path
         tableView.dataSource = self
         tableView.delegate = self
-        codeTextField.delegate = self
+        keywordTextField.delegate = self
         
         
         tableView.allowsMultipleSelection = true
@@ -245,13 +245,16 @@ class RootFileEditor: NSViewController {
     
     // 搜索筛选词条
     func searchPhrases(){
-        let code = codeTextField.stringValue
+        let keyword = keywordTextField.stringValue
         searchDictionies =  mainDictionaries.filter { (item) -> Bool in
             do {
-                let regCode = try NSRegularExpression(pattern: "^\(code)\\w*$", options: .useUnicodeWordBoundaries)
-                let strRangeMax = NSMakeRange(0, item.code.count)
-                let serachResults = regCode.matches(in: item.code, options: [], range: strRangeMax)
-                return serachResults.count > 0
+                let regCode = try NSRegularExpression(pattern: "^.*\(keyword).*$", options: .useUnicodeWordBoundaries)
+                let codeRangeMax = NSMakeRange(0, item.code.count)
+                let wordRangeMax = NSMakeRange(0, item.word.count)
+                let codeSerachResults = regCode.matches(in: item.code, options: [], range: codeRangeMax)
+                let wordSerachResults = regCode.matches(in: item.word, options: [], range: wordRangeMax)
+
+                return codeSerachResults.count > 0 || wordSerachResults.count > 0
             } catch {
                 print("search reg code error")
                 return false
