@@ -53,6 +53,7 @@
                                                 <action selector="sortDictionaries:" target="Ady-hI-5gd" id="xcW-i9-cJO"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="MCv-nY-U19"/>
                                         <menuItem title="Edit Root File" id="OeF-wH-YDJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -480,7 +481,7 @@ CA
             <objects>
                 <windowController storyboardIdentifier="RootEditorWindowController" id="AzD-rB-V2T" sceneMemberID="viewController">
                     <window key="window" title="Wubi Buddy" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="0eC-3A-coV">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="278" y="260" width="400" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
@@ -639,14 +640,11 @@ CA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="RtC-5L-9Vd">
-                                        <rect key="frame" x="0.0" y="43" width="100" height="20"/>
-                                    </progressIndicator>
                                     <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="30" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tYj-IY-5NB">
-                                        <rect key="frame" x="0.0" y="0.0" width="380" height="24"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="380" height="62"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sar-Ir-ZZt">
-                                                <rect key="frame" x="0.0" y="4" width="122" height="16"/>
+                                                <rect key="frame" x="0.0" y="23" width="122" height="16"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8jk-BO-PG5">
                                                         <rect key="frame" x="-2" y="0.0" width="51" height="16"/>
@@ -675,7 +673,7 @@ CA
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pfb-k8-c0O">
-                                                <rect key="frame" x="152" y="2" width="228" height="21"/>
+                                                <rect key="frame" x="152" y="21" width="228" height="21"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fMm-mP-O9N">
                                                         <rect key="frame" x="-6" y="-7" width="67" height="32"/>
@@ -737,10 +735,8 @@ CA
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
-                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -757,7 +753,6 @@ CA
                     <connections>
                         <outlet property="btnDelete" destination="fMm-mP-O9N" id="Gjd-7B-4K9"/>
                         <outlet property="codeTextField" destination="1iO-39-ahV" id="qa8-DB-tPY"/>
-                        <outlet property="progressBar" destination="RtC-5L-9Vd" id="NwP-QF-Ssh"/>
                         <outlet property="selectedCountLabel" destination="CT6-6L-7kO" id="RUG-yI-3MQ"/>
                         <outlet property="tableView" destination="Uwr-6p-Y3f" id="Xmv-KX-Fto"/>
                         <outlet property="wordCountLabel" destination="8jk-BO-PG5" id="lW0-Zw-bim"/>

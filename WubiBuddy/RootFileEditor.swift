@@ -13,11 +13,10 @@ import UserNotifications
 class RootFileEditor: NSViewController {
     
     // CONST Values
-    let IS_TEST_MODE = true
-//    let IS_TEST_MODE = false
-    
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
     let backupFileName = "WubiBuddy-Backup.wubibuddy"
+    
+     var IS_TEST_MODE = true
 
     // MARK: - Outlet and Methods
     // Storyboard
@@ -26,7 +25,6 @@ class RootFileEditor: NSViewController {
     @IBOutlet weak var wordCountLabel: NSTextField!
     @IBOutlet weak var selectedCountLabel: NSTextField!
     @IBOutlet weak var btnDelete: NSButton!
-    @IBOutlet weak var progressBar: NSProgressIndicator!
     
     // MARK: - Variables
     
@@ -50,16 +48,20 @@ class RootFileEditor: NSViewController {
     var headerRootFile = ""                     // 根字典头部
 
     var substringInvalid: [String] = []         // 词组 - 不规范
-    var mainDictionaries: [Phrase] = []         // 词组 - 主配置字典
-    var searchDictionies: [Phrase] = []         // 词组 - 搜索词条
+    var mainDictionaries: [Phrase] = []          // 词组 - 主配置字典
+    var searchDictionies: [Phrase] = [] {         // 词组 - 搜索词条
+        didSet {
+            tableView.reloadData()
+            updateLabels()
+            updateButtonState()
+        }
+    }
     
     
     // MARK: - IBActions
     
     @IBAction func deleteWord(_ sender: NSButton) {
         var selectedItems :[Phrase] = []
-        
-        progressBar.startAnimation(nil)
         for itemIndex in tableView.selectedRowIndexes {
             selectedItems.append(searchDictionies[itemIndex])
         }
@@ -68,14 +70,8 @@ class RootFileEditor: NSViewController {
             if let index = mainDictionaries.firstIndex(where: {$0 == item}){
                 mainDictionaries.remove(at: index)
             }
-            progressBar.increment(by: Double(100/selectedItems.count))
         }
-        progressBar.stopAnimation(nil)
-        progressBar.doubleValue = 100
         searchDictionies = mainDictionaries
-        tableView.reloadData()
-        updateLabels()
-        updateButtonState()
         writeMainFile()
     }
     
@@ -85,7 +81,7 @@ class RootFileEditor: NSViewController {
     
     @IBAction func sortDictionaries(_ sender: Any) {
         mainDictionaries.sort(by: {$0.code < $1.code})
-        tableView.reloadData()
+        searchDictionies = mainDictionaries
         writeMainFile()
     }
     
@@ -93,7 +89,6 @@ class RootFileEditor: NSViewController {
         mainDictionaries = []
         loadMainFileContent()
         validateInvalidSubstringExsit()
-        tableView.reloadData()
         updateLabels()
         updateButtonState()
     }
@@ -108,10 +103,10 @@ class RootFileEditor: NSViewController {
         tableView.delegate = self
         codeTextField.delegate = self
         
+        
         tableView.allowsMultipleSelection = true
         updateButtonState()
         loadMainFileContent()
-        tableView.reloadData()
         updateLabels()
     }
     
@@ -136,7 +131,7 @@ class RootFileEditor: NSViewController {
     func writeMainFile() {
         var output = headerMainFile + "...\n\n" // 插入头部
         mainDictionaries.forEach { (item) in
-            output = output + "\(item.word)\t\(item.code)\n"
+            output.append("\(item.word)\t\(item.code)\n")
         }
         FileManager.default.createFile(atPath: mainTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
         do {
@@ -234,7 +229,7 @@ class RootFileEditor: NSViewController {
                                 print("Init regular expression fail")
                             }
                         }
-                        self.tableView.reloadData()
+                        self.searchDictionies = self.mainDictionaries
                         self.writeMainFile()
                     case 1001: // 添加到桌面文件
                         var output = """
@@ -286,7 +281,6 @@ class RootFileEditor: NSViewController {
                 return false
             }
         }
-        tableView.reloadData()
     }
     
     // EOF: Editor
@@ -339,5 +333,14 @@ extension RootFileEditor: NSTextFieldDelegate {
         default:
             return false
         }
+    }
+}
+
+
+extension RootFileEditor: NSWindowDelegate {
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        let application = NSApplication.shared
+        application.stopModal() // TODO: next step
+        return true
     }
 }

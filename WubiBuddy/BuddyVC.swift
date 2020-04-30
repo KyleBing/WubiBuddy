@@ -73,7 +73,13 @@ class BuddyVC: NSViewController {
     var headerRootFile = ""                     // 根字典头部
 
     var substringInvalid: [String] = []         // 词组 - 不规范
-    var mainDictionaries: [Phrase] = []         // 词组 - 主配置字典
+    var mainDictionaries: [Phrase] = [] {       // 词组 - 主配置字典
+        didSet {
+            tableView.reloadData()
+            updateLabels()
+            updateButtonState()
+        }
+    }
     var rootDictionaries: [Phrase] = []         // 词组 - 根文件
     
     
@@ -91,9 +97,6 @@ class BuddyVC: NSViewController {
                 mainDictionaries.remove(at: index)
             }
         }
-        tableView.reloadData()
-        updateLabels()
-        updateButtonState()
         writeMainFile()
     }
     
@@ -103,7 +106,6 @@ class BuddyVC: NSViewController {
     
     @IBAction func sortDictionaries(_ sender: Any) {
         mainDictionaries.sort(by: {$0.code < $1.code})
-        tableView.reloadData()
         writeMainFile()
     }
     
@@ -111,19 +113,20 @@ class BuddyVC: NSViewController {
         mainDictionaries = []
         loadContent()
         validateInvalidSubstringExsit()
-        tableView.reloadData()
-        updateLabels()
         updateButtonState()
     }
     
     @IBAction func showRootFileWindow(_ sender: AnyObject) {
       let storyboard = NSStoryboard(name: "Main", bundle: nil)
-      let wordCountWindowController = storyboard.instantiateController(withIdentifier: "RootEditorWindowController") as! NSWindowController
+      let rootFileEditorWindowController = storyboard.instantiateController(withIdentifier: "RootEditorWindowController") as! NSWindowController
       
-      if let rootFileEditorWindow = wordCountWindowController.window{
+      if let rootFileEditorWindow = rootFileEditorWindowController.window{
+
         
         // 2
-//        let rootFileEditorVC = rootFileEditorWindow.contentViewController as! RootFileEditor
+        let rootFileEditorVC = rootFileEditorWindow.contentViewController as! RootFileEditor
+        rootFileEditorVC.IS_TEST_MODE = IS_TEST_MODE
+        rootFileEditorWindow.delegate = rootFileEditorVC
         
         // 3
         let application = NSApplication.shared
@@ -132,7 +135,6 @@ class BuddyVC: NSViewController {
         rootFileEditorWindow.close()
       }
     }
-    
     
     // MARK: - Life Cycle
     
@@ -145,9 +147,7 @@ class BuddyVC: NSViewController {
         wordTextField.delegate = self
         
         tableView.allowsMultipleSelection = true
-        updateButtonState()
         loadContent()
-        tableView.reloadData()
         updateLabels()
     }
     
@@ -271,15 +271,14 @@ class BuddyVC: NSViewController {
                                 print("Init regular expression fail")
                             }
                         }
-                        self.tableView.reloadData()
                         self.writeMainFile()
                     case 1001: // 添加到桌面文件
                         var output = """
                                     # 原文件路径：\(self.mainFileURL.path)
                                     # 这些是配置文件中格式不正确的词条：\n\n
                                     """ // 插入头部
-                        for item in self.substringInvalid {
-                            output = output + item + "\n"
+                        self.substringInvalid.forEach { (item) in
+                            output.append(item)
                         }
                         FileManager.default.createFile(atPath: self.invalidTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
                         do {
@@ -309,9 +308,6 @@ class BuddyVC: NSViewController {
             codeTextField.stringValue = ""
             wordTextField.stringValue = ""
             codeTextField.becomeFirstResponder()
-            
-            tableView.reloadData()
-            updateLabels()
             writeMainFile()
         }
     }
@@ -401,10 +397,7 @@ class BuddyVC: NSViewController {
         // 4. generate output string
         var output = headerRootFile + "...\n\n"
         
-        rootDictionaries.forEach({output = output + "\($0.word)\t\($0.code)\n"})
-        /// __耗时进程__
-        /// 用 Phrase 对象方法会慢一倍
-
+        rootDictionaries.forEach {output.append("\($0.word)\t\($0.code)\n")}
         // 5. write to new temp file
         FileManager.default.createFile(atPath: rootTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
 
