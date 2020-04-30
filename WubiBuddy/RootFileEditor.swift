@@ -1,32 +1,20 @@
 //
-//  BuddyVC.swift
+//  RootFileEditor.swift
 //  WubiBuddy
 //
-//  Created by Kyle on 2020/4/1.
+//  Created by Kyle on 2020/4/29.
 //  Copyright © 2020 Cyan Maple. All rights reserved.
 //
 
 import Cocoa
 import UserNotifications
 
-struct FilePath {
-    public static var desktop: URL{
-        let pathHome = FileManager.default.homeDirectoryForCurrentUser
-        let filePath = pathHome.appendingPathComponent("Desktop/")
-        return filePath
-    }
-    public static var rime: URL{
-        let pathHome = FileManager.default.homeDirectoryForCurrentUser
-        let filePath = pathHome.appendingPathComponent("Library/Rime/")
-        return filePath
-    }
-}
 
-class BuddyVC: NSViewController {
+class RootFileEditor: NSViewController {
     
     // CONST Values
-//    let IS_TEST_MODE = false
     let IS_TEST_MODE = true
+//    let IS_TEST_MODE = false
     
     let tempFileName = "WubiBuddy-Temp.wubibuddy"
     let backupFileName = "WubiBuddy-Backup.wubibuddy"
@@ -34,47 +22,36 @@ class BuddyVC: NSViewController {
     // MARK: - Outlet and Methods
     // Storyboard
     @IBOutlet weak var codeTextField: NSTextField!
-    @IBOutlet weak var wordTextField: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var wordCountLabel: NSTextField!
     @IBOutlet weak var selectedCountLabel: NSTextField!
     @IBOutlet weak var btnDelete: NSButton!
-    @IBOutlet weak var btnInsert: NSButton!
-    @IBOutlet weak var btnAdd: NSButton!
+    @IBOutlet weak var progressBar: NSProgressIndicator!
     
     // MARK: - Variables
     
     // file that this app operate on
     var mainFileURL:URL{
-        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent("Rime.txt") : FilePath.rime.appendingPathComponent("wubi86_jidian_addition.dict.yaml")
+        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent("Source.txt") : FilePath.rime.appendingPathComponent("wubi86_jidian.dict.yaml")
     }
     var mainTempFileURL:URL{
         return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent(tempFileName) : FilePath.rime.appendingPathComponent(tempFileName)
     }
     
-    // root dict.yaml file
-    var rootFileURL:URL{
-        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent("Source.txt") : FilePath.rime.appendingPathComponent("wubi86_jidian.dict.yaml")
-    }
-    var rootTempFileURL:URL{
-        return IS_TEST_MODE ? FilePath.desktop.appendingPathComponent(tempFileName) : FilePath.rime.appendingPathComponent(tempFileName)
-    }
-    
     // invalid words output file
     var invalidFileURL:URL{
-        return FilePath.desktop.appendingPathComponent("Rime不规范的词条.txt")
+        return FilePath.desktop.appendingPathComponent("Rime主码表-不规范的词条.txt")
     }
     var invalidTempFileURL:URL{
         return FilePath.desktop.appendingPathComponent(tempFileName)
     }
-    
     
     var headerMainFile = ""                     // 主配置字典头部
     var headerRootFile = ""                     // 根字典头部
 
     var substringInvalid: [String] = []         // 词组 - 不规范
     var mainDictionaries: [Phrase] = []         // 词组 - 主配置字典
-    var rootDictionaries: [Phrase] = []         // 词组 - 根文件
+    var searchDictionies: [Phrase] = []         // 词组 - 搜索词条
     
     
     // MARK: - IBActions
@@ -82,23 +59,28 @@ class BuddyVC: NSViewController {
     @IBAction func deleteWord(_ sender: NSButton) {
         var selectedItems :[Phrase] = []
         
+        progressBar.startAnimation(nil)
         for itemIndex in tableView.selectedRowIndexes {
-            selectedItems.append(mainDictionaries[itemIndex])
+            selectedItems.append(searchDictionies[itemIndex])
         }
         
         selectedItems.forEach { (item) in
             if let index = mainDictionaries.firstIndex(where: {$0 == item}){
                 mainDictionaries.remove(at: index)
             }
+            progressBar.increment(by: Double(100/selectedItems.count))
         }
+        progressBar.stopAnimation(nil)
+        progressBar.doubleValue = 100
+        searchDictionies = mainDictionaries
         tableView.reloadData()
         updateLabels()
         updateButtonState()
         writeMainFile()
     }
     
-    @IBAction func addBtnPressed(_ sender: NSButton) {
-        addWord()
+    @IBAction func searchBtnPressed(_ sender: NSButton) {
+        searchPhrases()
     }
     
     @IBAction func sortDictionaries(_ sender: Any) {
@@ -109,28 +91,11 @@ class BuddyVC: NSViewController {
     
     @IBAction func reloadFileContent(_ sender: Any) {
         mainDictionaries = []
-        loadContent()
+        loadMainFileContent()
         validateInvalidSubstringExsit()
         tableView.reloadData()
         updateLabels()
         updateButtonState()
-    }
-    
-    @IBAction func showRootFileWindow(_ sender: AnyObject) {
-      let storyboard = NSStoryboard(name: "Main", bundle: nil)
-      let wordCountWindowController = storyboard.instantiateController(withIdentifier: "RootEditorWindowController") as! NSWindowController
-      
-      if let rootFileEditorWindow = wordCountWindowController.window{
-        
-        // 2
-//        let rootFileEditorVC = rootFileEditorWindow.contentViewController as! RootFileEditor
-        
-        // 3
-        let application = NSApplication.shared
-        application.runModal(for: rootFileEditorWindow)
-        // 4
-        rootFileEditorWindow.close()
-      }
     }
     
     
@@ -142,11 +107,10 @@ class BuddyVC: NSViewController {
         tableView.dataSource = self
         tableView.delegate = self
         codeTextField.delegate = self
-        wordTextField.delegate = self
         
         tableView.allowsMultipleSelection = true
         updateButtonState()
-        loadContent()
+        loadMainFileContent()
         tableView.reloadData()
         updateLabels()
     }
@@ -183,7 +147,7 @@ class BuddyVC: NSViewController {
     }
     
     // 载入文件内容
-    func loadContent() {
+    func loadMainFileContent() {
         if let fileContent = try? String(contentsOf: mainFileURL, encoding: .utf8) {
             // 根据 ... 的位置获取文件头部
             let nsFileContent = NSString(string: fileContent)
@@ -205,7 +169,6 @@ class BuddyVC: NSViewController {
             let fileContent = nsFileContent.substring(from: headerRange.upperBound)
             
             let tempStrings = fileContent.split(separator: "\n")
-            
             tempStrings.forEach { (item) in
                 let current = String(item)
                 // valid
@@ -219,7 +182,7 @@ class BuddyVC: NSViewController {
                     substringInvalid.append(current)
                 }
             }
-
+            searchDictionies = mainDictionaries
         } else {
             let alert = NSAlert()
             alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
@@ -295,36 +258,9 @@ class BuddyVC: NSViewController {
         }
     }
     
-    // 添加用户词
-    func addWord(){
-        let code = codeTextField.stringValue.trimmingCharacters(in: .whitespaces)
-        let word = wordTextField.stringValue
-        if code.count == 0 {
-            codeTextField.becomeFirstResponder()
-        } else if word.count == 0 {
-            wordTextField.becomeFirstResponder()
-        } else {
-            mainDictionaries.insert(Phrase(code: code, word: word), at: 0)
-            // 重置输入区
-            codeTextField.stringValue = ""
-            wordTextField.stringValue = ""
-            codeTextField.becomeFirstResponder()
-            
-            tableView.reloadData()
-            updateLabels()
-            writeMainFile()
-        }
-    }
-    
     // 更新删除按钮状态
     func updateButtonState() {
-        if tableView.selectedRowIndexes.count > 0{
-            btnDelete.isEnabled = true
-            btnInsert.isEnabled = true
-        } else {
-            btnDelete.isEnabled = false
-            btnInsert.isEnabled = false
-        }
+        btnDelete.isEnabled = tableView.selectedRowIndexes.count > 0
     }
     
     // 更新界面中的Label
@@ -336,87 +272,25 @@ class BuddyVC: NSViewController {
     }
     
     
-    // 将选中的词条插入到根字典文件中
-    @IBAction func insertIntoRootFile(_ sender: Any){
-        if rootDictionaries.count == 0 {
-            if let fileContent = try? String(contentsOf: rootFileURL, encoding: .utf8) {
-                // 1. get header
-                let nsFileContent = NSString(string: fileContent)
-                
-                let headerRange = nsFileContent.range(of: "...")
-                // 2. if lack of "..."line, exit(0)
-                if headerRange.length == 0 {
-                    let alert = NSAlert()
-                    alert.messageText = "文件中缺少必要分隔行"
-                    alert.informativeText = """
-                    \(rootFileURL.path)
-                    请确保文件中存在 【 ... 】 三个点这一行
-                    请手动添加，再打开程序重试
-                    点击确定退出程序
-                    """
-                    alert.runModal()
-                    exit(0)
-                }
-                headerRootFile = nsFileContent.substring(to: headerRange.lowerBound)
-                let fileContent = nsFileContent.substring(from: headerRange.upperBound)
-                
-                
-                
-                let tempStrings = fileContent.split(separator: "\n")
-                
-                tempStrings.forEach { (item) in
-                    let current = String(item)
-                    // valid
-                    if current.contains("\t") && !current.contains("\t ") {
-                        let tempSubstring = current.split(separator: "\t")
-                        rootDictionaries.append(Phrase(code: String(tempSubstring[1]), word: String(tempSubstring[0])))
-                    }
-                    // invalid
-                    // TODO: deal with invalid
-                }
-            } else {
-                let alert = NSAlert()
-                alert.messageText = "缺少: \(mainFileURL.lastPathComponent) "
-                alert.informativeText = "请前往 https://github.com/KyleBing/rime-wubi86-jidian 下载最新配置文件，再重试"
-                alert.runModal()
-                exit(0)
+    // 搜索筛选词条
+    func searchPhrases(){
+        let code = codeTextField.stringValue
+        searchDictionies =  mainDictionaries.filter { (item) -> Bool in
+            do {
+                let regCode = try NSRegularExpression(pattern: "^\(code)\\w*$", options: .useUnicodeWordBoundaries)
+                let strRangeMax = NSMakeRange(0, item.code.count)
+                let serachResults = regCode.matches(in: item.code, options: [], range: strRangeMax)
+                return serachResults.count > 0
+            } catch {
+                print("search reg code error")
+                return false
             }
         }
-        
-        
-        
-        // 3. locate and insert to sourceDic
-        for itemIndex in tableView.selectedRowIndexes {
-            let currentItem = mainDictionaries[itemIndex]
-            if rootDictionaries.count == 0{
-                rootDictionaries.append(currentItem)
-            } else if let index = rootDictionaries.firstIndex(where: { $0.code >= currentItem.code }){
-                print("\(currentItem.word): \(index)")
-                rootDictionaries.insert(currentItem, at: index)
-            } else {
-                rootDictionaries.append(currentItem)
-            }
-        }
-
-        // 4. generate output string
-        var output = headerRootFile + "...\n\n"
-        
-        rootDictionaries.forEach({output = output + "\($0.word)\t\($0.code)\n"})
-        /// __耗时进程__
-        /// 用 Phrase 对象方法会慢一倍
-
-        // 5. write to new temp file
-        FileManager.default.createFile(atPath: rootTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
-
-        // 6. replace source file with temp file
-        do {
-            if let _ = try FileManager.default.replaceItemAt(rootFileURL, withItemAt: rootTempFileURL, backupItemName: backupFileName, options: .usingNewMetadataOnly) {
-                deleteWord(NSButton()) // 7. if successfully save root file delete selected items
-            }
-        } catch {
-            print("replace file:\(rootFileURL.path) fail")
-        }
+        tableView.reloadData()
     }
+    
+    // EOF: Editor
+    
     
 }
 
@@ -424,10 +298,10 @@ class BuddyVC: NSViewController {
 
 // MARK: - Table Datasource and Delegate
 
-extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
+extension RootFileEditor: NSTableViewDataSource, NSTableViewDelegate {
     // Table Datasource
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return mainDictionaries.count
+        return searchDictionies.count
     }
     
     //Table Delegate
@@ -435,9 +309,9 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CellNormal"), owner: self) as? NSTableCellView{
             switch tableColumn {
             case tableView.tableColumns[0]:
-                cell.textField?.stringValue = mainDictionaries[row].code
+                cell.textField?.stringValue = searchDictionies[row].code
             case tableView.tableColumns[1]:
-                cell.textField?.stringValue = mainDictionaries[row].word
+                cell.textField?.stringValue = searchDictionies[row].word
             default: break
             }
             return cell
@@ -455,18 +329,12 @@ extension BuddyVC: NSTableViewDataSource, NSTableViewDelegate {
 
 // MARK: - Keyboard Event
 
-extension BuddyVC: NSTextFieldDelegate {
+extension RootFileEditor: NSTextFieldDelegate {
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         switch commandSelector {
         // 当检测到按键是 Enter 回车键时，对应的其它按键可以去 NSResponder 中查看
         case #selector(NSResponder.insertNewline(_:)):
-            if let inputView =  control as? NSTextField {
-                if inputView == codeTextField {
-                    wordTextField.becomeFirstResponder()    // 光标移动到用户词输入框
-                } else {
-                    addWord()                               // 去执行添加用户词的方法
-                }
-            }
+            searchPhrases()
             return true
         default:
             return false

@@ -13,6 +13,7 @@
 		274199CA243446300058AF19 /* BuddyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274199C9243446300058AF19 /* BuddyVC.swift */; };
 		274199CC243446320058AF19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274199CB243446320058AF19 /* Assets.xcassets */; };
 		274199CF243446320058AF19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274199CD243446320058AF19 /* Main.storyboard */; };
+		277B148F2459AAF000521E63 /* RootFileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B148E2459AAF000521E63 /* RootFileEditor.swift */; };
 		27BE490524557CAB000A71A0 /* Phrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BE490424557CAB000A71A0 /* Phrase.swift */; };
 		27F58430244FD7D0000ADE7D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27F58432244FD7D0000ADE7D /* Localizable.strings */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 		274199CE243446320058AF19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		274199D0243446320058AF19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		274199D1243446320058AF19 /* WubiBuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WubiBuddy.entitlements; sourceTree = "<group>"; };
+		277B148E2459AAF000521E63 /* RootFileEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFileEditor.swift; sourceTree = "<group>"; };
 		27BE490424557CAB000A71A0 /* Phrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phrase.swift; sourceTree = "<group>"; };
 		27F11FBD244FD13800746944 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		27F5842F244FD75D000ADE7D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			children = (
 				274199C7243446300058AF19 /* AppDelegate.swift */,
 				274199C9243446300058AF19 /* BuddyVC.swift */,
+				277B148E2459AAF000521E63 /* RootFileEditor.swift */,
 				274199CD243446320058AF19 /* Main.storyboard */,
 				274199CB243446320058AF19 /* Assets.xcassets */,
 				274199D0243446320058AF19 /* Info.plist */,
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27BE490524557CAB000A71A0 /* Phrase.swift in Sources */,
+				277B148F2459AAF000521E63 /* RootFileEditor.swift in Sources */,
 				274199CA243446300058AF19 /* BuddyVC.swift in Sources */,
 				274199C8243446300058AF19 /* AppDelegate.swift in Sources */,
 			);
