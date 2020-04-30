@@ -1,11 +1,23 @@
-/* Class = "NSButtonCell"; title = "重载文件内容"; ObjectID = "2Y8-m7-D7K"; */
+/* Class = "NSTextFieldCell"; placeholderString = "已选择0条"; ObjectID = "1sK-b3-J7d"; */
+"1sK-b3-J7d.placeholderString" = "Sel: 0";
+
+/* Class = "NSButtonCell"; title = "重载"; ObjectID = "2Y8-m7-D7K"; */
 "2Y8-m7-D7K.title" = "Reload File";
+
+/* Class = "NSButtonCell"; title = "删除"; ObjectID = "7NS-qG-JLD"; */
+"7NS-qG-JLD.title" = "Delete";
 
 /* Class = "NSTextFieldCell"; placeholderString = "编码"; ObjectID = "bWK-c7-sEI"; */
 "bWK-c7-sEI.placeholderString" = "Code";
 
-/* Class = "NSButtonCell"; title = "插入到主词库"; ObjectID = "M9Z-YK-k2n"; */
-"M9Z-YK-k2n.title" = "Add to Root File";
+/* Class = "NSButtonCell"; title = "主码表"; ObjectID = "cEg-hW-guk"; */
+"cEg-hW-guk.title" = "Root File";
+
+/* Class = "NSTextFieldCell"; title = "共45条"; ObjectID = "Iyw-it-Ng6"; */
+"Iyw-it-Ng6.title" = "Tol: 45";
+
+/* Class = "NSButtonCell"; title = "添至主码表"; ObjectID = "M9Z-YK-k2n"; */
+"M9Z-YK-k2n.title" = "Add to Root";
 
 /* Class = "NSButtonCell"; title = "排序"; ObjectID = "nYX-2d-QCE"; */
 "nYX-2d-QCE.title" = "Sort";
@@ -21,6 +33,12 @@
 
 /* Class = "NSButtonCell"; title = "删除"; ObjectID = "tmd-2c-Z1X"; */
 "tmd-2c-Z1X.title" = "Delete";
+
+/* Class = "NSButtonCell"; title = "重载"; ObjectID = "tOn-H4-Ofw"; */
+"tOn-H4-Ofw.title" = "Reload File";
+
+/* Class = "NSButtonCell"; title = "搜索"; ObjectID = "y9g-hX-7UV"; */
+"y9g-hX-7UV.title" = "Search";
 
 /* Class = "NSTextFieldCell"; placeholderString = "已选择0条"; ObjectID = "zeU-aa-6xr"; */
 "zeU-aa-6xr.placeholderString" = "Sel: 0";

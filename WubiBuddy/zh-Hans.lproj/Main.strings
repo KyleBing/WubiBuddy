@@ -1,10 +1,16 @@
+/* Class = "NSWindow"; title = "Wubi Buddy"; ObjectID = "0eC-3A-coV"; */
+"0eC-3A-coV.title" = "码表助手";
+
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "0mH-95-RrQ"; */
 "0mH-95-RrQ.title" = "剪切";
+
+/* Class = "NSTextFieldCell"; placeholderString = "已选择0条"; ObjectID = "1sK-b3-J7d"; */
+"1sK-b3-J7d.placeholderString" = "已选择0条";
 
 /* Class = "NSMenuItem"; title = "WubiBuddy"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "码表助手";
 
-/* Class = "NSButtonCell"; title = "重载文件内容"; ObjectID = "2Y8-m7-D7K"; */
+/* Class = "NSButtonCell"; title = "重载"; ObjectID = "2Y8-m7-D7K"; */
 "2Y8-m7-D7K.title" = "重载文件内容";
 
 /* Class = "NSMenuItem"; title = "Quit WubiBuddy"; ObjectID = "4sb-4s-VLi"; */
@@ -19,6 +25,9 @@
 /* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "7ia-Lj-Dqw"; */
 "7ia-Lj-Dqw.title" = "查找下一个";
 
+/* Class = "NSButtonCell"; title = "删除"; ObjectID = "7NS-qG-JLD"; */
+"7NS-qG-JLD.title" = "删除";
+
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "主菜单";
 
@@ -30,6 +39,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "ce5-1v-Btb"; */
 "ce5-1v-Btb.title" = "Text Cell";
+
+/* Class = "NSButtonCell"; title = "主码表"; ObjectID = "cEg-hW-guk"; */
+"cEg-hW-guk.title" = "主码表";
 
 /* Class = "NSMenuItem"; title = "Sort Data"; ObjectID = "cLZ-hW-7Yo"; */
 "cLZ-hW-7Yo.title" = "排序当前码表";
@@ -55,20 +67,26 @@
 /* Class = "NSWindow"; title = "Wubi Buddy"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "码表助手";
 
+/* Class = "NSTextFieldCell"; title = "共45条"; ObjectID = "Iyw-it-Ng6"; */
+"Iyw-it-Ng6.title" = "共45条";
+
 /* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "KTk-o7-ktL"; */
 "KTk-o7-ktL.title" = "跳到选择处";
 
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "kWL-Cj-gFW"; */
 "kWL-Cj-gFW.title" = "重做";
 
-/* Class = "NSButtonCell"; title = "插入到主词库"; ObjectID = "M9Z-YK-k2n"; */
-"M9Z-YK-k2n.title" = "添加到主词库";
+/* Class = "NSButtonCell"; title = "添至主码表"; ObjectID = "M9Z-YK-k2n"; */
+"M9Z-YK-k2n.title" = "添至主码表";
 
 /* Class = "NSTableColumn"; headerCell.title = "编码"; ObjectID = "mQC-mW-Vjb"; */
 "mQC-mW-Vjb.headerCell.title" = "编码";
 
 /* Class = "NSButtonCell"; title = "排序"; ObjectID = "nYX-2d-QCE"; */
 "nYX-2d-QCE.title" = "排序";
+
+/* Class = "NSMenuItem"; title = "Edit Root File"; ObjectID = "OeF-wH-YDJ"; */
+"OeF-wH-YDJ.title" = "编辑主码表";
 
 /* Class = "NSTableColumn"; headerCell.title = "词条"; ObjectID = "og5-e9-s1f"; */
 "og5-e9-s1f.headerCell.title" = "词条";
@@ -109,6 +127,9 @@
 /* Class = "NSButtonCell"; title = "删除"; ObjectID = "tmd-2c-Z1X"; */
 "tmd-2c-Z1X.title" = "删除";
 
+/* Class = "NSButtonCell"; title = "重载"; ObjectID = "tOn-H4-Ofw"; */
+"tOn-H4-Ofw.title" = "重载";
+
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "ufK-Or-rma"; */
 "ufK-Or-rma.title" = "删除";
 
@@ -123,6 +144,9 @@
 
 /* Class = "NSMenu"; title = "Data"; ObjectID = "W48-6f-4Dl"; */
 "W48-6f-4Dl.title" = "数据";
+
+/* Class = "NSButtonCell"; title = "搜索"; ObjectID = "y9g-hX-7UV"; */
+"y9g-hX-7UV.title" = "搜索";
 
 /* Class = "NSMenu"; title = "Find"; ObjectID = "Z9I-YZ-YOQ"; */
 "Z9I-YZ-YOQ.title" = "查找";

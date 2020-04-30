@@ -149,7 +149,6 @@ class RootFileEditor: NSViewController {
                     mainDictionaries.append(Phrase(code: String(tempSubstring[1]), word: String(tempSubstring[0])))
                 }
                 // invalid
-                // TODO: deal with invalid
                 if !current.contains("\t") && NSPredicate(format: "SELF MATCHES %@", "^\\w+? {0,10}.+?$").evaluate(with: current) {
                     substringInvalid.append(current)
                 }
@@ -169,7 +168,7 @@ class RootFileEditor: NSViewController {
         // if invalid string exsit: alert about it
         if !substringInvalid.isEmpty {
             var invalidStringCombine = ""
-            for i in 0..<8 {
+            for i in 0..<(substringInvalid.count<8 ? substringInvalid.count : 8) {
                 invalidStringCombine.append("\(substringInvalid[i])\n")
             }
             let userInfo = [NSLocalizedDescriptionKey: "存在不规范词条"]
@@ -191,7 +190,7 @@ class RootFileEditor: NSViewController {
                     case 1000: // 添加到词库
                         for item in self.substringInvalid {
                             do {
-                                let regWord = try NSRegularExpression(pattern: "^\\w+(?=\\s+)", options: .useUnicodeWordBoundaries)
+                                let regWord = try NSRegularExpression(pattern: "^.+(?=\\s[a-zA-Z]+$)", options: .useUnicodeWordBoundaries)
                                 let regCode = try NSRegularExpression(pattern: "(?<=\\s)[a-zA-Z]+$", options: .useUnicodeWordBoundaries)
                                 
                                 let strRangeMax = NSMakeRange(0, item.count)
@@ -213,7 +212,7 @@ class RootFileEditor: NSViewController {
                                     # 这些是配置文件中格式不正确的词条：\n\n
                                     """ // 插入头部
                         for item in self.substringInvalid {
-                            output = output + item + "\n"
+                            output.append("\(item)\n")
                         }
                         FileManager.default.createFile(atPath: FilePath.rootInvalidTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
                         do {
@@ -316,7 +315,7 @@ extension RootFileEditor: NSTextFieldDelegate {
 extension RootFileEditor: NSWindowDelegate {
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         let application = NSApplication.shared
-        application.stopModal() // TODO: next step
+        application.stopModal()
         return true
     }
 }

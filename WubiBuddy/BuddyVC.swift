@@ -123,7 +123,7 @@ class BuddyVC: NSViewController {
     func writeMainFile() {
         var output = headerMainFile + "...\n\n" // 插入头部
         mainDictionaries.forEach { (item) in
-            output = output + "\(item.word)\t\(item.code)\n"
+            output.append("\(item.word)\t\(item.code)\n")
         }
         FileManager.default.createFile(atPath: FilePath.mainTempFileURL.path, contents: output.data(using: .utf8), attributes: nil)
         do {
@@ -165,7 +165,6 @@ class BuddyVC: NSViewController {
                     mainDictionaries.append(Phrase(code: String(tempSubstring[1]), word: String(tempSubstring[0])))
                 }
                 // invalid
-                // TODO: deal with invalid
                 if !current.contains("\t") && NSPredicate(format: "SELF MATCHES %@", "^\\w+? {0,10}.+?$").evaluate(with: current) {
                     substringInvalid.append(current)
                 }
@@ -185,7 +184,7 @@ class BuddyVC: NSViewController {
         // if invalid string exsit: alert about it
         if !substringInvalid.isEmpty {
             var invalidStringCombine = ""
-            for i in 0..<8 {
+            for i in 0..<(substringInvalid.count<8 ? substringInvalid.count : 8) {
                 invalidStringCombine.append("\(substringInvalid[i])\n")
             }
             let userInfo = [NSLocalizedDescriptionKey: "存在不规范词条"]
@@ -207,7 +206,7 @@ class BuddyVC: NSViewController {
                     case 1000: // 添加到词库
                         for item in self.substringInvalid {
                             do {
-                                let regWord = try NSRegularExpression(pattern: "^\\w+(?=\\s+)", options: .useUnicodeWordBoundaries)
+                                let regWord = try NSRegularExpression(pattern: "^.+(?=\\s[a-zA-Z]+$)", options: .useUnicodeWordBoundaries)
                                 let regCode = try NSRegularExpression(pattern: "(?<=\\s)[a-zA-Z]+$", options: .useUnicodeWordBoundaries)
                                 
                                 let strRangeMax = NSMakeRange(0, item.count)

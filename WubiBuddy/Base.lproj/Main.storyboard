@@ -41,12 +41,6 @@
                                                 <action selector="reloadFileContent:" target="Ady-hI-5gd" id="lH6-2F-PEn"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Insert Into Root File" id="cZw-7k-uiE">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="insertIntoRootFile:" target="Ady-hI-5gd" id="6ds-mn-akc"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Sort Data" id="cLZ-hW-7Yo">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -54,8 +48,13 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="MCv-nY-U19"/>
-                                        <menuItem title="Edit Root File" id="OeF-wH-YDJ">
+                                        <menuItem title="Insert Into Root File" id="cZw-7k-uiE">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="insertIntoRootFile:" target="Ady-hI-5gd" id="6ds-mn-akc"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Edit Root File" keyEquivalent="o" id="OeF-wH-YDJ">
                                             <connections>
                                                 <action selector="showRootFileWindow:" target="Ady-hI-5gd" id="IPS-1b-6hS"/>
                                             </connections>
@@ -187,11 +186,11 @@ CA
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="BuddyVC" customModule="码表助手" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="605" height="444"/>
+                        <rect key="frame" x="0.0" y="0.0" width="646" height="444"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView distribution="fillProportionally" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gXv-QP-Rl2">
-                                <rect key="frame" x="20" y="20" width="565" height="404"/>
+                                <rect key="frame" x="20" y="20" width="606" height="404"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWW-e0-pgp">
                                         <rect key="frame" x="0.0" y="383" width="479" height="21"/>
@@ -339,7 +338,7 @@ CA
                                         </tableHeaderView>
                                     </scrollView>
                                     <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="30" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qm6-Hm-9qU">
-                                        <rect key="frame" x="0.0" y="0.0" width="493" height="62"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="500" height="62"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KQq-Ua-nIc">
                                                 <rect key="frame" x="0.0" y="23" width="122" height="16"/>
@@ -371,7 +370,7 @@ CA
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3E-j1-xNd">
-                                                <rect key="frame" x="152" y="21" width="341" height="21"/>
+                                                <rect key="frame" x="152" y="21" width="348" height="21"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vyK-Sy-S4B">
                                                         <rect key="frame" x="-6" y="-7" width="67" height="32"/>
@@ -384,8 +383,8 @@ CA
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aSn-su-Q5R">
-                                                        <rect key="frame" x="54" y="-7" width="120" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="插入到主词库" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="M9Z-YK-k2n">
+                                                        <rect key="frame" x="54" y="-7" width="107" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="添至主码表" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="M9Z-YK-k2n">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                         </buttonCell>
@@ -393,8 +392,18 @@ CA
                                                             <action selector="insertIntoRootFile:" target="rPt-NT-nkU" id="7da-JJ-dHB"/>
                                                         </connections>
                                                     </button>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4WX-t2-5kS">
+                                                        <rect key="frame" x="154" y="-7" width="80" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="主码表" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cEg-hW-guk">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="showRootFileWindow:" target="rPt-NT-nkU" id="8Xw-2l-oYY"/>
+                                                        </connections>
+                                                    </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="I63-wf-qig">
-                                                        <rect key="frame" x="167" y="-7" width="67" height="32"/>
+                                                        <rect key="frame" x="227" y="-7" width="67" height="32"/>
                                                         <buttonCell key="cell" type="push" title="排序" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nYX-2d-QCE">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -404,8 +413,8 @@ CA
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cHO-LJ-zLl">
-                                                        <rect key="frame" x="227" y="-7" width="120" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="重载文件内容" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Y8-m7-D7K">
+                                                        <rect key="frame" x="287" y="-7" width="67" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="重载" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Y8-m7-D7K">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                         </buttonCell>
@@ -419,8 +428,10 @@ CA
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
+                                                    <integer value="1000"/>
                                                 </visibilityPriorities>
                                                 <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
@@ -641,7 +652,7 @@ CA
                                         </tableHeaderView>
                                     </scrollView>
                                     <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="30" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tYj-IY-5NB">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="267" height="62"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sar-Ir-ZZt">
                                                 <rect key="frame" x="0.0" y="23" width="122" height="16"/>
@@ -673,7 +684,7 @@ CA
                                                 </customSpacing>
                                             </stackView>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pfb-k8-c0O">
-                                                <rect key="frame" x="152" y="21" width="168" height="21"/>
+                                                <rect key="frame" x="152" y="21" width="115" height="21"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fMm-mP-O9N">
                                                         <rect key="frame" x="-6" y="-7" width="67" height="32"/>
@@ -686,8 +697,8 @@ CA
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KJ4-v2-iu1">
-                                                        <rect key="frame" x="54" y="-7" width="120" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="重载文件内容" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tOn-H4-Ofw">
+                                                        <rect key="frame" x="54" y="-7" width="67" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="重载" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tOn-H4-Ofw">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                         </buttonCell>
