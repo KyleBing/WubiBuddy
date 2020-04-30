@@ -8,7 +8,9 @@
 
 import Cocoa
 
-public let IS_TEST_MODE = true
+//public let IS_TEST_MODE = true
+public let IS_TEST_MODE = false
+
 public let tempFileName = "WubiBuddy-Temp.wubibuddy"
 public let backupFileName = "WubiBuddy-Backup.wubibuddy"
 

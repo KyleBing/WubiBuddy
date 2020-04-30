@@ -215,6 +215,7 @@ class BuddyVC: NSViewController {
                                     let codeString = NSString(string: item).substring(with: codeMatch.range)
                                     let wordString = NSString(string: item).substring(with: wordMatch.range)
                                     self.mainDictionaries.append(Phrase(code: codeString, word: wordString))
+                                    self.writeMainFile()
                                 }
                             } catch {
                                 print("Init regular expression fail")
