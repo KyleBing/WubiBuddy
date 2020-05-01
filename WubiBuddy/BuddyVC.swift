@@ -403,13 +403,7 @@ extension BuddyVC: NSTextFieldDelegate {
         switch commandSelector {
         // 当检测到按键是 Enter 回车键时，对应的其它按键可以去 NSResponder 中查看
         case #selector(NSResponder.insertNewline(_:)):
-            if let inputView =  control as? NSTextField {
-                if inputView == codeTextField {
-                    wordTextField.becomeFirstResponder()    // 光标移动到用户词输入框
-                } else {
-                    addWord()                               // 去执行添加用户词的方法
-                }
-            }
+            addWord()                               // 去执行添加用户词的方法
             return true
         default:
             return false
