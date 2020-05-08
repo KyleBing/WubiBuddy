@@ -336,7 +336,9 @@ class BuddyVC: NSViewController {
             let currentItem = mainDictionaries[itemIndex]
             if rootDictionaries.count == 0{
                 rootDictionaries.append(currentItem)
-            } else if let index = rootDictionaries.firstIndex(where: { $0.code >= currentItem.code }){
+                /// `$0.code > currentItem.code` 插入到找到的位置之后
+                /// `$0.code >= currentItem.code` 插入到找到的位置之前
+            } else if let index = rootDictionaries.firstIndex(where: { $0.code > currentItem.code }){
                 print("\(currentItem.word): \(index)")
                 rootDictionaries.insert(currentItem, at: index)
             } else {
