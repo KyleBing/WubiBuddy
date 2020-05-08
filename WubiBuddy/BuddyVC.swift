@@ -248,16 +248,16 @@ class BuddyVC: NSViewController {
     func addWord(){
         let code = codeTextField.stringValue.trimmingCharacters(in: .whitespaces)
         let word = wordTextField.stringValue
-        if code.count == 0 {
-            codeTextField.becomeFirstResponder()
-        } else if word.count == 0 {
+        if word.count == 0 {
             wordTextField.becomeFirstResponder()
-        } else {
+        } else if code.count == 0 {
+            codeTextField.becomeFirstResponder()
+        } else  {
             mainDictionaries.insert(Phrase(code: code, word: word), at: 0)
             // 重置输入区
             codeTextField.stringValue = ""
             wordTextField.stringValue = ""
-            codeTextField.becomeFirstResponder()
+            wordTextField.becomeFirstResponder()
             writeMainFile()
         }
     }
