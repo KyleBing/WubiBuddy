@@ -31,6 +31,9 @@
 /* Class = "NSTextFieldCell"; title = "共45"; ObjectID = "P7o-fy-wvi"; */
 "P7o-fy-wvi.title" = "Tol: 45";
 
+/* Class = "NSTextFieldCell"; placeholderString = "关键字"; ObjectID = "pV9-MP-noE"; */
+"pV9-MP-noE.placeholderString" = "keyword";
+
 /* Class = "NSTextFieldCell"; placeholderString = "词条"; ObjectID = "qKO-gE-npg"; */
 "qKO-gE-npg.placeholderString" = "Phrase";
 
