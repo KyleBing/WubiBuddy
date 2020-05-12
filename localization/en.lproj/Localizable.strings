@@ -6,5 +6,5 @@
   Copyright © 2020 Cyan Maple. All rights reserved.
 */
 
-"共 %d 条" = "Tol %d";
-"已选 %d 条" = "Sel %d";
+"共 %d" = "Tol %d";
+"已选 %d" = "Sel %d";

@@ -4,8 +4,11 @@
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "0mH-95-RrQ"; */
 "0mH-95-RrQ.title" = "剪切";
 
-/* Class = "NSTextFieldCell"; placeholderString = "已选择0条"; ObjectID = "1sK-b3-J7d"; */
-"1sK-b3-J7d.placeholderString" = "已选择0条";
+/* Class = "NSMenuItem"; title = "Move Up"; ObjectID = "1SA-rQ-AoR"; */
+"1SA-rQ-AoR.title" = "上移";
+
+/* Class = "NSTextFieldCell"; placeholderString = "已选0"; ObjectID = "1sK-b3-J7d"; */
+"1sK-b3-J7d.placeholderString" = "已选0";
 
 /* Class = "NSMenuItem"; title = "WubiBuddy"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "码表助手";
@@ -28,8 +31,17 @@
 /* Class = "NSButtonCell"; title = "删除"; ObjectID = "7NS-qG-JLD"; */
 "7NS-qG-JLD.title" = "删除";
 
+/* Class = "NSTextFieldCell"; title = "五笔"; ObjectID = "AQv-ly-gZ7"; */
+"AQv-ly-gZ7.title" = "五笔";
+
+/* Class = "NSButtonCell"; title = "上移"; ObjectID = "Ay6-id-fnC"; */
+"Ay6-id-fnC.title" = "上移";
+
 /* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
 "AYu-sK-qS6.title" = "主菜单";
+
+/* Class = "NSMenuItem"; title = "Move Down"; ObjectID = "BN9-8P-GhP"; */
+"BN9-8P-GhP.title" = "下移";
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
 "BOF-NM-1cW.title" = "偏好设置";
@@ -52,6 +64,9 @@
 /* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "dKf-0h-9AL"; */
 "dKf-0h-9AL.title" = "查找上一个";
 
+/* Class = "NSTextFieldCell"; title = "ggtt"; ObjectID = "dza-zs-jZ1"; */
+"dza-zs-jZ1.title" = "ggtt";
+
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "eSe-va-dRw"; */
 "eSe-va-dRw.title" = "选择全部";
 
@@ -61,14 +76,17 @@
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "fWl-KR-nwW"; */
 "fWl-KR-nwW.title" = "复制";
 
+/* Class = "NSButtonCell"; title = "下移"; ObjectID = "Ghu-BJ-Hj0"; */
+"Ghu-BJ-Hj0.title" = "下移";
+
 /* Class = "NSTextFieldCell"; title = "五笔"; ObjectID = "grP-PI-M8V"; */
 "grP-PI-M8V.title" = "五笔";
 
 /* Class = "NSWindow"; title = "Wubi Buddy"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "码表助手";
 
-/* Class = "NSTextFieldCell"; title = "共45条"; ObjectID = "Iyw-it-Ng6"; */
-"Iyw-it-Ng6.title" = "共45条";
+/* Class = "NSTextFieldCell"; title = "共45"; ObjectID = "Iyw-it-Ng6"; */
+"Iyw-it-Ng6.title" = "共45";
 
 /* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "KTk-o7-ktL"; */
 "KTk-o7-ktL.title" = "跳到选择处";
@@ -94,8 +112,11 @@
 /* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "oXW-oO-WGq"; */
 "oXW-oO-WGq.title" = "在选中项目中查找";
 
-/* Class = "NSTextFieldCell"; title = "共45条"; ObjectID = "P7o-fy-wvi"; */
-"P7o-fy-wvi.title" = "共45条";
+/* Class = "NSTextFieldCell"; title = "共45"; ObjectID = "P7o-fy-wvi"; */
+"P7o-fy-wvi.title" = "共45";
+
+/* Class = "NSTextFieldCell"; placeholderString = "关键字"; ObjectID = "pV9-MP-noE"; */
+"pV9-MP-noE.placeholderString" = "关键字";
 
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "qjx-Xh-vUn"; */
 "qjx-Xh-vUn.title" = "编辑";
@@ -124,6 +145,9 @@
 /* Class = "NSButtonCell"; title = "添加"; ObjectID = "TKm-Ay-ZsI"; */
 "TKm-Ay-ZsI.title" = "添加";
 
+/* Class = "NSTableColumn"; headerCell.title = "词条"; ObjectID = "tLp-mi-wGA"; */
+"tLp-mi-wGA.headerCell.title" = "词条";
+
 /* Class = "NSButtonCell"; title = "删除"; ObjectID = "tmd-2c-Z1X"; */
 "tmd-2c-Z1X.title" = "删除";
 
@@ -145,12 +169,15 @@
 /* Class = "NSMenu"; title = "Data"; ObjectID = "W48-6f-4Dl"; */
 "W48-6f-4Dl.title" = "数据";
 
+/* Class = "NSTableColumn"; headerCell.title = "编码"; ObjectID = "wzN-R9-JdF"; */
+"wzN-R9-JdF.headerCell.title" = "编码";
+
 /* Class = "NSButtonCell"; title = "搜索"; ObjectID = "y9g-hX-7UV"; */
 "y9g-hX-7UV.title" = "搜索";
 
 /* Class = "NSMenu"; title = "Find"; ObjectID = "Z9I-YZ-YOQ"; */
 "Z9I-YZ-YOQ.title" = "查找";
 
-/* Class = "NSTextFieldCell"; placeholderString = "已选择0条"; ObjectID = "zeU-aa-6xr"; */
-"zeU-aa-6xr.placeholderString" = "已选择0条";
+/* Class = "NSTextFieldCell"; placeholderString = "已选0"; ObjectID = "zeU-aa-6xr"; */
+"zeU-aa-6xr.placeholderString" = "已选0";
 

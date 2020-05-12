@@ -18,6 +18,8 @@ class RootFileEditor: NSViewController {
     @IBOutlet weak var wordCountLabel: NSTextField!
     @IBOutlet weak var selectedCountLabel: NSTextField!
     @IBOutlet weak var btnDelete: NSButton!
+    @IBOutlet weak var btnUp: NSButton!
+    @IBOutlet weak var btnDown: NSButton!
     
     // MARK: - Variables
     
@@ -56,11 +58,12 @@ class RootFileEditor: NSViewController {
         searchPhrases()
     }
     
-//    @IBAction func sortDictionaries(_ sender: Any) {
-//        mainDictionaries.sort(by: {$0.code < $1.code})
-//        searchDictionies = mainDictionaries
-//        writeMainFile()
-//    }
+    @IBAction func replaceUp(_ sender: NSButton) {
+        sort(moveAbove: true)
+    }
+    @IBAction func replaceDown(_ sender: NSButton) {
+        sort(moveAbove: false)
+    }
     
     @IBAction func reloadFileContent(_ sender: Any) {
         mainDictionaries = []
@@ -232,13 +235,15 @@ class RootFileEditor: NSViewController {
     // 更新删除按钮状态
     func updateButtonState() {
         btnDelete.isEnabled = tableView.selectedRowIndexes.count > 0
+        btnUp.isEnabled = tableView.selectedRowIndexes.count == 1 && tableView.selectedRow != 0
+        btnDown.isEnabled = tableView.selectedRowIndexes.count == 1 && tableView.selectedRow != searchDictionies.count - 1
     }
     
     // 更新界面中的Label
     func updateLabels(){
-        let formatStringWordCount = NSLocalizedString("共 %d 条", comment: "总共多少条的输出字符串")
+        let formatStringWordCount = NSLocalizedString("共 %d", comment: "总共多少条的输出字符串")
         wordCountLabel.stringValue = String.localizedStringWithFormat(formatStringWordCount, searchDictionies.count)
-        let formatStringSelectionCount = NSLocalizedString("已选 %d 条", comment: "选择多少条")
+        let formatStringSelectionCount = NSLocalizedString("已选 %d", comment: "选择多少条")
         selectedCountLabel.stringValue = String.localizedStringWithFormat(formatStringSelectionCount, tableView.selectedRowIndexes.count)
     }
     
@@ -260,6 +265,22 @@ class RootFileEditor: NSViewController {
                 return false
             }
         }
+    }
+    
+    // 排序词条
+    func sort(moveAbove: Bool){
+        let posOrigin = tableView.selectedRow
+        let posDest = moveAbove ? posOrigin - 1 : posOrigin + 1
+        let phraseOrigin = searchDictionies[posOrigin]
+        let phraseDest = searchDictionies[posDest]
+        let mainPosOrigin = mainDictionaries.firstIndex { $0 == phraseOrigin }!
+        let mainPosDest = mainDictionaries.firstIndex { $0 == phraseDest }!
+        
+        searchDictionies.swapAt(posOrigin, posDest)
+        mainDictionaries.swapAt(mainPosOrigin, mainPosDest)
+        
+        tableView.selectRowIndexes(IndexSet(integer: posDest), byExtendingSelection: false) // 表格刷新后再选中原操作行
+        writeMainFile()
     }
     
     // EOF: Editor

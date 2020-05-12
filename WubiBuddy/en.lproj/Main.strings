@@ -1,4 +1,4 @@
-/* Class = "NSTextFieldCell"; placeholderString = "已选择0条"; ObjectID = "1sK-b3-J7d"; */
+/* Class = "NSTextFieldCell"; placeholderString = "已选0"; ObjectID = "1sK-b3-J7d"; */
 "1sK-b3-J7d.placeholderString" = "Sel: 0";
 
 /* Class = "NSButtonCell"; title = "重载"; ObjectID = "2Y8-m7-D7K"; */
@@ -7,13 +7,19 @@
 /* Class = "NSButtonCell"; title = "删除"; ObjectID = "7NS-qG-JLD"; */
 "7NS-qG-JLD.title" = "Delete";
 
+/* Class = "NSButtonCell"; title = "上移"; ObjectID = "Ay6-id-fnC"; */
+"Ay6-id-fnC.title" = "Move Up";
+
 /* Class = "NSTextFieldCell"; placeholderString = "编码"; ObjectID = "bWK-c7-sEI"; */
 "bWK-c7-sEI.placeholderString" = "Code";
 
 /* Class = "NSButtonCell"; title = "主码表"; ObjectID = "cEg-hW-guk"; */
 "cEg-hW-guk.title" = "Root File";
 
-/* Class = "NSTextFieldCell"; title = "共45条"; ObjectID = "Iyw-it-Ng6"; */
+/* Class = "NSButtonCell"; title = "下移"; ObjectID = "Ghu-BJ-Hj0"; */
+"Ghu-BJ-Hj0.title" = "Move Down";
+
+/* Class = "NSTextFieldCell"; title = "共45"; ObjectID = "Iyw-it-Ng6"; */
 "Iyw-it-Ng6.title" = "Tol: 45";
 
 /* Class = "NSButtonCell"; title = "添至主码表"; ObjectID = "M9Z-YK-k2n"; */
@@ -22,7 +28,7 @@
 /* Class = "NSButtonCell"; title = "排序"; ObjectID = "nYX-2d-QCE"; */
 "nYX-2d-QCE.title" = "Sort";
 
-/* Class = "NSTextFieldCell"; title = "共45条"; ObjectID = "P7o-fy-wvi"; */
+/* Class = "NSTextFieldCell"; title = "共45"; ObjectID = "P7o-fy-wvi"; */
 "P7o-fy-wvi.title" = "Tol: 45";
 
 /* Class = "NSTextFieldCell"; placeholderString = "词条"; ObjectID = "qKO-gE-npg"; */
@@ -40,6 +46,6 @@
 /* Class = "NSButtonCell"; title = "搜索"; ObjectID = "y9g-hX-7UV"; */
 "y9g-hX-7UV.title" = "Search";
 
-/* Class = "NSTextFieldCell"; placeholderString = "已选择0条"; ObjectID = "zeU-aa-6xr"; */
+/* Class = "NSTextFieldCell"; placeholderString = "已选0"; ObjectID = "zeU-aa-6xr"; */
 "zeU-aa-6xr.placeholderString" = "Sel: 0";
 
