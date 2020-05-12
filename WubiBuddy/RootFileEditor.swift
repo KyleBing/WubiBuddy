@@ -269,18 +269,20 @@ class RootFileEditor: NSViewController {
     
     // 排序词条
     func sort(moveAbove: Bool){
-        let posOrigin = tableView.selectedRow
-        let posDest = moveAbove ? posOrigin - 1 : posOrigin + 1
-        let phraseOrigin = searchDictionies[posOrigin]
-        let phraseDest = searchDictionies[posDest]
-        let mainPosOrigin = mainDictionaries.firstIndex { $0 == phraseOrigin }!
-        let mainPosDest = mainDictionaries.firstIndex { $0 == phraseDest }!
-        
-        searchDictionies.swapAt(posOrigin, posDest)
-        mainDictionaries.swapAt(mainPosOrigin, mainPosDest)
-        
-        tableView.selectRowIndexes(IndexSet(integer: posDest), byExtendingSelection: false) // 表格刷新后再选中原操作行
-        writeMainFile()
+        if tableView.selectedRow != -1 {
+            let posOrigin = tableView.selectedRow
+            let posDest = moveAbove ? posOrigin - 1 : posOrigin + 1
+            let phraseOrigin = searchDictionies[posOrigin]
+            let phraseDest = searchDictionies[posDest]
+            let mainPosOrigin = mainDictionaries.firstIndex { $0 == phraseOrigin }!
+            let mainPosDest = mainDictionaries.firstIndex { $0 == phraseDest }!
+            
+            searchDictionies.swapAt(posOrigin, posDest)
+            mainDictionaries.swapAt(mainPosOrigin, mainPosDest)
+            
+            tableView.selectRowIndexes(IndexSet(integer: posDest), byExtendingSelection: false) // 表格刷新后再选中原操作行
+            writeMainFile()
+        }
     }
     
     // EOF: Editor
