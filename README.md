@@ -17,7 +17,7 @@
 
 ## 使用说明
 
-如果提示无法打开，文件损坏什么的，所 app 移到应用程序 `Applications` 文件夹后，这样操作：
+如果提示无法打开，文件损坏什么的，将 app 移到应用程序 `Applications` 文件夹后，这样操作：
 
 ```bash
 sudo xattr -rd com.apple.quarantine /Applications/码表助手.app/
