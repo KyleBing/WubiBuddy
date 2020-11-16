@@ -10,10 +10,22 @@
 该工具跟 [86极点码表配置方案](https://github.com/KyleBing/rime-wubi86-jidian) 搭配使用
 有好的想法可以从 `issue` 中提出来
 
+
 ## 下载：
 [码表助手](https://github.com/KyleBing/WubiBuddy/releases)
 
+
 ## 使用说明
+
+如果提示无法打开，文件损坏什么的，所 app 移到应用程序 `Applications` 文件夹后，这样操作：
+
+```bash
+sudo xattr -rd com.apple.quarantine /Applications/码表助手.app/
+```
+
+这样应该就能打开了。
+
+
 1. __添加__：输入词条和编码后，回车添加用户词，用户词添加到 `wubi86_jidian_addition.dict.yaml` 文件中
 2. __删除__：选中词条按<kbd>删除</kbd>按钮或 <kbd>Backspace</kbd> 键删除选中的词条
 3. __加至主码表__：选中词条后选择『数据』中的『插入词条到主码表文件』会把选中的词条添加到 `wubi86_jidian.dict.yaml` 文件中，并删除当前码表中的词条  `wubi86_jidian_addition.dict.yaml` 
