@@ -1,9 +1,11 @@
+该项目已不再更新，
 
-<img width="702" alt="main file" src="https://user-images.githubusercontent.com/12215982/81660658-9e83b800-946d-11ea-8689-879ea2674b12.png">
-<img width="618" alt="root file" src="https://user-images.githubusercontent.com/12215982/81660669-a17ea880-946d-11ea-9cdc-72c0a6ccd517.png">
+欢迎使用最新版的跨平台程序： 五笔码表助手[https://github.com/KyleBing/wubi-dict-editor](https://github.com/KyleBing/wubi-dict-editor)
+
+---
 
 
-# 码表助手 for Rime
+# 码表助手 for Rime （已存档）
 
 > macOS version v10.15
 
@@ -13,6 +15,10 @@
 
 ## 下载：
 [码表助手](https://github.com/KyleBing/WubiBuddy/releases)
+
+
+<img width="702" alt="main file" src="https://user-images.githubusercontent.com/12215982/81660658-9e83b800-946d-11ea-8689-879ea2674b12.png">
+<img width="618" alt="root file" src="https://user-images.githubusercontent.com/12215982/81660669-a17ea880-946d-11ea-9cdc-72c0a6ccd517.png">
 
 
 ## 使用说明
